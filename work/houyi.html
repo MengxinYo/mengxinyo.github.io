@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Hou Yi and Ten Suns — Mengxin Yu</title>
+    <meta name="description" content="Hou Yi and Ten Suns — WebVR game design case study by Mengxin Yu.">
+    <meta name="author" content="Mengxin Yu">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--
+    	CRITICAL LOADER STYLES — inlined on purpose.
+    
+    	Every ordinary stylesheet link blocks first paint. When the loader was
+    	styled by one, the curtain could not appear until the very resources it
+    	exists to cover had already downloaded — so a slow connection produced a
+    	long blank white screen and *then* a loading animation, which is exactly
+    	backwards. Inlining this means the loader paints on the first frame with
+    	no network dependency at all.
+    
+    	This is only the resting appearance. The exit sequence and reduced-motion
+    	rules live in assets/css/preloader.css, which loads asynchronously below
+    	and is always in place long before the curtain lifts.
+    -->
+    <style>
+    .preloader{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;display:flex;
+    flex-direction:column;align-items:center;justify-content:center;background:#fff;
+    opacity:0;visibility:hidden}
+    .js-loading .preloader{opacity:1;visibility:visible}
+    .preloader__mark{margin-bottom:22px;font-family:"Quicksand",Arial,sans-serif;
+    font-size:10px;font-weight:500;letter-spacing:5px;text-transform:uppercase;color:#9a9a9a}
+    .preloader__track{position:relative;width:240px;max-width:60vw;height:1px;
+    background:rgba(0,0,0,.09);overflow:hidden}
+    .preloader__bar{position:absolute;top:0;right:0;bottom:0;left:0;background:#111;
+    transform:scaleX(0);transform-origin:center}
+    .preloader__sheen{position:absolute;top:0;right:0;bottom:0;left:0;
+    background:linear-gradient(90deg,transparent,rgba(0,0,0,.28),transparent);
+    transform:translateX(-100%);animation:preSheen 1.6s ease-in-out infinite}
+    @keyframes preSheen{to{transform:translateX(100%)}}
+    </style>
+    <script>
+    	/* Runs before the body is parsed, so the curtain is visible on the very
+    	   first frame. Added by JS so a browser without it never sees a curtain
+    	   it has no way to dismiss. */
+    	document.documentElement.classList.add('js', 'js-loading');
+    </script>
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="../assets/css/houyi-base.css" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link rel="stylesheet" href="../assets/css/houyi-base.css"></noscript>
+    <!-- The shared nav is set in Roboto. work/tal.html already loads it;
+         without it here the nav would silently fall back to Arial and the
+         two case studies wouldn't match. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet"></noscript>
+    <link rel="stylesheet" href="../assets/css/preloader.css" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link rel="stylesheet" href="../assets/css/preloader.css"></noscript>
+    <link rel="stylesheet" href="../assets/css/project-nav.css" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link rel="stylesheet" href="../assets/css/project-nav.css"></noscript>
+    <link rel="stylesheet" href="../assets/css/houyi.css" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link rel="stylesheet" href="../assets/css/houyi.css"></noscript>
+
+    <!-- script
+    ================================================== -->
+    <script src="../assets/js/preloader.js" defer></script>
+
+</head>
+
+<body id="top">
+    <!-- Site-wide loading animation. Styles: assets/css/preloader.css
+         Behaviour: assets/js/preloader.js -->
+    <div class="preloader" role="status" aria-label="Loading">
+        <span class="preloader__mark">Mengxin Yu</span>
+        <div class="preloader__track">
+            <div class="preloader__bar"></div>
+            <div class="preloader__sheen"></div>
+        </div>
+    </div>
+
+    <!-- Shared case-study nav — identical markup in work/tal.html.
+         This replaces the bespoke off-canvas header this page used to ship,
+         which was the only nav on the site that looked and worked
+         differently from every other page.
+         Styles: assets/css/project-nav.css · Behaviour: assets/js/project-nav.js -->
+    <header class="proj-nav" id="projNav">
+        <a class="proj-nav__logo" href="../index.html" aria-label="Mengxin Yu — home">
+            <img src="../assets/images/site/weblogo.png" alt="Mengxin Yu">
+        </a>
+        <span class="proj-nav__title">Hou Yi and Ten Suns</span>
+        <nav class="proj-nav__links" id="projNavLinks" aria-label="Main">
+            <a href="../index.html">Work</a>
+            <a href="../about.html">About Me</a>
+            <a href="../resume.html">Resume</a>
+        </nav>
+        <button class="proj-nav__toggle" id="projNavToggle" type="button"
+                aria-label="Toggle menu" aria-expanded="false" aria-controls="projNavLinks">
+            <span></span>
+        </button>
+    </header>
+
+
+    <!-- home ================================================== -->
+    <section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="../assets/images/houyi/background.png" data-natural-width=150 data-natural-height=70 data-position-y=top>
+    </section> <!-- end s-home -->
+    
+
+       <section id="role">
+        <div class="row block-1-4 block-m-1-4 block-tab-1-2">
+            <div class="col-block" >
+                <h3 class="sub-subhead">Timeline</h3>
+                <p>Apr 2018 - May 2018</p>
+            </div>
+            <div class="col-block" >
+                <h3 class="sub-subhead">Team</h3>
+                <ul>
+                    <li>Chen Ni</li>
+                    <li>Cherie Chen</li>
+                    <li>Mengxin Yu</li>
+                    <li>Shanshan Jin</li>
+                    <li>Shengzhi Wu</li>
+                    <li>Yejin Lee</li>
+                </ul>
+            </div>
+            <div class="col-block" >
+                <h3 class="sub-subhead">My role</h3>
+                <ul>
+                    <li>Storyboard design</li>
+                    <li>VR game development</li>
+                    <li>Web development</li>
+                </ul>
+            </div>
+            <div class="col-block" >
+                <h3 class="sub-subhead">Domain</h3>
+                <ul>
+                    <li>VR game design</li>
+                    <li>Web VR</li>
+                </ul>
+            </div>
+        </div>       
+    </section>
+    <!-- content ================================================== -->
+    
+    
+    <section id="product" style="margin-top:10rem; margin-bottom: 5rem;">
+            <div width="20%" align="center">
+                <h3 class="subhead">Final Product</h3>
+                <p>Click <a href="https://shanshaj.github.io/Hou-Yi/"><b>here</b></a> to start the immersive journey! This game requires a <b>VR device</b>.
+                <br>It's OK to play it on website without device, but sometimes you may be upside down in the game :(
+                <br>We also record a video for you. For your better experience, please turn the sound to the <b>maximum</b> and set resolution to <b>720P</b> :p</p>
+                <p>Hope you enjoy it :) </p>
+            </div>
+            <div width="65%" align="center">
+                <iframe width="725" height="408" src="https://www.youtube.com/embed/RPonLf4-3fg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> 
+            </div>   
+    </section> 
+      
+    <section id='about' class="s-services" >
+        <div class="row block-1-2 block-m-1-2 block-tab-full">
+            <div class="col-block">
+                <img width="90%" src="../assets/images/houyi/team.png">
+            </div>
+            <div class="col-block">
+                <h3 class="subhead">About us</h3>
+                <img src="../assets/images/houyi/t3.png">
+                <p>We are an interdisciplinary team of students from Carnegie Mellon University, united by a single question: how might storytelling come alive through WebVR? Drawn together by our shared love of Chinese folktales, we chose the timeless myth "Hou Yi and the Ten Suns" as our subject matter.</p>
+            </div>
+        </div>
+    </section> <!-- end -->
+    
+    <section id='story' class="s-services" style="background-image: url(../assets/images/houyi/hill4.png); background-repeat:no-repeat">
+        <div class="row block-1-2 block-m-1-2 block-tab-full">
+            <div class="col-block">
+               <h3 class="subhead">Background Story</h3>
+                <img src="../assets/images/houyi/t1.png">
+                <p>"Hou Yi and the Ten Suns" is a Chinese folktale dating back at least 4,000 years. As the story goes, ten sun gods once took turns lighting the world, one each day. But one day, restless and bored, they all rose into the sky together. Their combined rays scorched the earth, drying rivers and turning the world into a barren wasteland. To save the Earth, the gods sent Hou Yi — a divine archer — to restore balance. He shot down nine of the ten suns, leaving a single sun to warm the world and bring life back to the land.</p>
+            </div>
+            <div class="col-block">
+                <img src="">
+            </div>
+        </div>
+    </section> <!-- end -->
+    
+    <section id='character' class="s-services"  style="background-image: url(../assets/images/houyi/hill2.png); background-repeat:no-repeat">
+        <div class="row block-1-2 block-m-1-2 block-tab-full">
+            <div class="col-block">
+                <img width="50%" src="../assets/images/houyi/houyi.gif">
+            </div>
+            <div class="col-block">
+                <h3 class="subhead">Main character</h3>
+                <img src="../assets/images/houyi/t2.png">
+                <p>In Chinese mythology, Hou Yi stands as the God of Archery — a figure of unmatched strength and perfect aim. With a single bow, he saved the moon from eclipse and freed his people from plague after plague, among them a monstrous wind that once tore across the land. But his greatest feat endures above all: shooting down nine of the ten suns that once set the earth ablaze.</p>
+            </div>
+        </div>
+    </section> <!-- end -->
+    
+    <section id='design' class="s-services">
+        <div class="row section-header" >
+            <div class="col-full">
+                <h3 class="subhead">Design Process</h3>
+            </div>
+        </div> <!-- end section-header -->
+
+        <div class="row">
+            <div class="col-full">
+                <h3 class="sub-subhead">Plot Design</h3>
+            </div>
+        </div>
+        <div class="row services-list block-1-3 block-m-1-2 block-tab-full">
+            <div class="col-block service-item " >
+                <div class="service-text">
+                    <img src="../assets/images/houyi/story1.png">
+                </div>
+                <p>We began by scripting the storyline. In this phase, we defined the narrative structure as a team — establishing the opening moment, the key events in between, and the branching endings players could reach based on their decisions.
+                </p>
+            </div>
+            <div class="col-block service-item " >
+                <div class="service-text">
+                    <img src="../assets/images/houyi/story2.png">
+                </div>
+                <p>Guided by the script, we translated the storyline into a storyboard, bringing the entire narrative to life visually and refining it through quick, iterative sketches.
+                </p>
+            </div>
+            <div class="col-block service-item " >
+                <div class="service-text">
+                    <img src="../assets/images/houyi/story3.png">
+                </div>
+                <p>We then rebuilt the storyboard digitally in <b>Clip Studio Paint</b>, adding richer detail — lighting, texture, depth, and perspective — to ensure designers and developers shared a single, clear vision moving forward.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-full">
+                <h3 class="sub-subhead">Visual Design</h3>
+            </div>
+        </div>
+        <div class="row services-list block-1-3 block-m-1-2 block-tab-full">
+            <div class="col-eight service-item " >
+                <div class="service-text">
+                    <img src="../assets/images/houyi/visual1.png">
+                </div>
+                <p>To make the experience of this ancient story truly immersive, we wove the aesthetic of Chinese ink-and-wash landscape painting throughout our design. The skybox was hand-painted on six sheets of Xuan paper, with varying ink intensities shaping the landscapes and creatures, and scattered ink splashes suggesting movement. Our UI elements — buttons, progress bars, and more — drew on the form of the traditional Chinese seal, tying the interface seamlessly to the world.
+                </p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-full">
+                <h3 class="sub-subhead">Character Design</h3>
+            </div>
+        </div>
+        <div class="row services-list block-1-3 block-m-1-2 block-tab-full">
+            <div class="col-block service-item " >
+                <div class="service-text">
+                    <img width="200px" height="355px" src="../assets/images/houyi/houyi.gif">
+                </div>
+                <p>We shaped Hou Yi's deliberately stylized, larger-than-life physique in <b>Adobe Fuse</b>, then rigged and animated him in Mixamo to create a complete motion set — from standing and walking to drawing his bow.
+                </p>
+            </div>
+            <div class="col-block service-item " >
+                <div class="service-text">
+                    <img width="312.4px" src="../assets/images/houyi/monster.gif">
+                </div>
+                <p>The monsters and additional assets were primarily sourced from <b>Sketchfab</b>, then brought to life with motion clips such as running and roaring.
+                </p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-full">
+                <h3 class="sub-subhead">Scene Design</h3>
+            </div>
+        </div>
+        <div class="row services-list block-1-3 block-m-1-2 block-tab-full">
+            <div class="col-block service-item " >
+                <div class="service-text">
+                    <video width="359.98px" src="../assets/images/houyi/scene1.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <p>Taking a page from architecture, we first built a foam-board prototype to test our ideas in physical space. Simulating the full game scene this way helped us define the terrain and refine our camera placement early on.
+                </p>
+            </div>
+            <div class="col-block service-item " >
+                <div class="service-text">
+                    <img width="335.85px" src="../assets/images/houyi/scene3.png">
+                </div>
+                <p>With those decisions locked in, we then built the landscape in <b>Unity</b>,
+                </p>
+            </div>
+            <div class="col-block service-item " >
+                <div class="service-text">
+                    <img width="335.85px" src="../assets/images/houyi/scene2.png">
+                </div>
+                <p>and set the position of the camera.
+                </p>
+            </div>
+            
+        </div>
+    </section>
+    
+    
+    <section id='develop' class="s-services" style="background-image: url(../assets/images/houyi/hill3.png); background-position:bottom; background-repeat:no-repeat">
+        <div class="row section-header" >
+            <div class="col-full">
+                <h3 class="subhead">Develop Process</h3>
+            </div>
+        </div>
+        <section class="s-develop" >
+            <div class="row block-1-2 block-m-1-2 block-tab-full">
+                <div class="col-block">
+                    <img src="../assets/images/houyi/dev3.gif">
+                </div>
+                <div class="col-block">
+                </div>
+            </div>
+        </section>
+
+        <section class="s-develop" >
+            <div class="row block-1-2 block-m-1-2 block-tab-full">
+                <div class="col-block">
+                    <h3 class="sub-subhead">Phase One</h3>
+                    <p>Build all the assets in Unity</p>
+                </div>
+                <div class="col-block">
+                    <img src="../assets/images/houyi/dev2.gif">
+                </div>
+            </div>
+        </section> <!-- end -->
+
+        <section class="s-develop" >
+            <div class="row block-1-2 block-m-1-2 block-tab-full">
+                <div class="col-block">
+                    <img src="../assets/images/houyi/dev1.gif">
+                </div>
+                <div class="col-block">
+                    <h3 class="sub-subhead">Phase Two</h3>
+                    <p>Add components (material, texture, particles, etc) to assets</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="s-develop" >
+            <div class="row block-1-2 block-m-1-2 block-tab-full">
+                <div class="col-block">
+                    <h3 class="sub-subhead">Phase Three</h3>
+                    <p>Set the timeline and make animations.</p>
+                </div>
+                <div class="col-block">
+                    <img src="../assets/images/houyi/dev4.gif">
+                </div>
+            </div>
+        </section> <!-- end -->
+
+        <section class="s-develop" >
+            <div class="row block-1-2 block-m-1-2 block-tab-full">
+                <div class="col-block">
+                    <img width="70%" src="../assets/images/houyi/dev5.gif">
+                </div>
+                <div class="col-block">
+                    <h3 class="sub-subhead">Phase Four</h3>
+                    <p>Write C# to control the event triggers.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="s-develop" >
+        <div class="row block-1-2 block-m-1-2 block-tab-full">
+            <div class="col-block">
+                <h3 class="sub-subhead">Phase Five</h3>
+                <p>Transfer the project outside Unity. Make sure the project is coherent and seamless across different platforms and devices</p>
+            </div>
+            <div class="col-block">
+                
+            </div>
+        </div>
+        </section>
+    </section> <!-- end #develop -->
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="../assets/js/vendor/jquery.min.js"></script>
+    <script src="../assets/js/vendor/houyi-plugins.js"></script>
+    <script src="../assets/js/houyi.js"></script>
+    <script src="../assets/js/project-nav.js" defer></script>
+
+</body>
+
+</html>

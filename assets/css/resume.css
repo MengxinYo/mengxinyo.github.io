@@ -1,0 +1,252 @@
+/* =========================================================================
+ * resume.css — styles unique to resume.html
+ *
+ * The page shell (sidebar, mobile bar, hamburger) is the shared
+ * site-nav.css; this file only styles the resume viewer.
+ *
+ * Layout intent: the viewer fills the column so that its top lines up with
+ * the sidebar logo and its bottom lines up with the sidebar's social
+ * icons — the two columns are framed by the same top/bottom margins.
+ * The sidebar pins its icon row 40px (position) + 20px (the icon list's
+ * own margin-bottom) above the viewport edge, i.e. 60px total — so the
+ * bottom padding here matches that 60px, not the sidebar's bare 40px.
+ * ========================================================================= */
+
+body {
+  margin: 0;
+  font-family: "Quicksand", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Full-height column, padded to match the sidebar's top (3em) and bottom
+   (60px, see note above) so the viewer aligns with the logo and the icons. */
+.colorlib-resume {
+  box-sizing: border-box;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 3em 40px 60px;
+}
+
+@media screen and (max-width: 768px) {
+  .colorlib-resume {
+    /* clear the fixed mobile top bar */
+    padding: calc(58px + 20px) 20px 32px;
+    min-height: auto;
+  }
+}
+
+/* --- toolbar: toggle centred, download to the right ------------------ */
+.resume-toolbar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+  flex: 0 0 auto;
+}
+
+.resume-toggle   { grid-column: 2; justify-self: center; }
+.resume-download { grid-column: 3; justify-self: end; }
+
+@media screen and (max-width: 640px) {
+  .resume-toolbar {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 14px;
+  }
+  .resume-toggle, .resume-download { grid-column: 1; justify-self: center; }
+}
+
+/* --- language toggle -------------------------------------------------
+ * A segmented control with a sliding highlight. The two halves are equal
+ * width (each button is flex:1 of a fixed-width track) and the highlight
+ * is exactly one half wide, moved with a CSS transform keyed off the
+ * track's data-lang attribute. No JavaScript measurement is involved —
+ * which is what fixes the overflow: the old version measured button width
+ * on load, before the web font had swapped in, so the pill was sized for
+ * the fallback font and clipped "English" once Quicksand arrived.
+ * ------------------------------------------------------------------ */
+.resume-toggle {
+  position: relative;
+  display: flex;
+  width: 132px;
+  max-width: 100%;
+  padding: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+  background: #fff;
+}
+
+.resume-toggle__thumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: 999px;
+  background: #111;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+}
+
+/* the only state the highlight needs: left half vs right half */
+.resume-toggle[data-lang="ch"] .resume-toggle__thumb {
+  transform: translateX(100%);
+}
+
+.resume-toggle__btn {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 50%;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px 4px;
+  font-family: "Quicksand", Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  color: rgba(0, 0, 0, 0.45);
+  transition: color 0.3s ease;
+}
+
+.resume-toggle__btn.is-active { color: #fff; }
+.resume-toggle__btn:not(.is-active):hover { color: #111; }
+
+.resume-toggle__btn:focus-visible {
+  outline: 2px solid #F75940;
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
+/* --- download button: icon-only circle, outline that fills on hover --
+ * Same resting border as the toggle (rgba(0,0,0,.12)) so the two
+ * controls read as one family; only darkens to #111 on hover/focus.
+ * ------------------------------------------------------------------ */
+.resume-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+  background: transparent;
+  color: #111 !important;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.resume-download svg { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+
+.resume-download:hover,
+.resume-download:focus {
+  background: #111;
+  border-color: #111;
+  color: #fff !important;
+}
+
+.resume-download:hover svg { transform: translateY(2px); }
+
+.resume-download:focus-visible {
+  outline: 2px solid #F75940;
+  outline-offset: 3px;
+}
+
+/* --- viewer ----------------------------------------------------------
+ * Fills the remaining column height. The PDF is loaded with #view=Fit, so
+ * the whole page is scaled to fit inside the frame — laid flat, no scroll.
+ * ------------------------------------------------------------------ */
+.resume-viewer {
+  position: relative;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;            /* let the flex item actually shrink */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #F7F7F7;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  .resume-viewer {
+    min-height: 70vh;
+    padding: 16px;
+  }
+}
+
+.resume-viewer__hint {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9a9a9a;
+  z-index: 0;
+}
+
+/* The rendered CV page. `contain` scales the whole A4 page to fit the
+   panel — laid flat, entirely visible, never cropped and never scrolled.
+   A subtle shadow lifts the white page off the grey panel like a document
+   on a desk. */
+.resume-frame {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  background: #fff;
+  box-shadow: 0 10px 40px -18px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.resume-viewer.is-ready .resume-frame { opacity: 1; }
+
+/* --- fallback link ---------------------------------------------------
+ * Black, single underline. The double line before was the browser's
+ * default underline plus a CSS border-bottom stacked on top of it.
+ * ------------------------------------------------------------------ */
+.resume-fallback {
+  flex: 0 0 auto;
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: #999;
+}
+
+.resume-fallback a {
+  color: #111;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  border-bottom: 0;
+}
+
+.resume-fallback a:hover,
+.resume-fallback a:focus { color: #000; }
+
+@media (prefers-reduced-motion: reduce) {
+  .resume-toggle__thumb,
+  .resume-download svg,
+  .resume-frame { transition: none; }
+}

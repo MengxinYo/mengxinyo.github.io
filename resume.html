@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Resume — Mengxin Yu</title>
+	<meta name="description" content="Preview and download Mengxin Yu's resume — English and 中文.">
+	<meta name="robots" content="noindex, nofollow">
+
+	<!--
+		CRITICAL LOADER STYLES — inlined on purpose.
+	
+		Every ordinary stylesheet link blocks first paint. When the loader was
+		styled by one, the curtain could not appear until the very resources it
+		exists to cover had already downloaded — so a slow connection produced a
+		long blank white screen and *then* a loading animation, which is exactly
+		backwards. Inlining this means the loader paints on the first frame with
+		no network dependency at all.
+	
+		This is only the resting appearance. The exit sequence and reduced-motion
+		rules live in assets/css/preloader.css, which loads asynchronously below
+		and is always in place long before the curtain lifts.
+	-->
+	<style>
+	.preloader{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;display:flex;
+	flex-direction:column;align-items:center;justify-content:center;background:#fff;
+	opacity:0;visibility:hidden}
+	.js-loading .preloader{opacity:1;visibility:visible}
+	.preloader__mark{margin-bottom:22px;font-family:"Quicksand",Arial,sans-serif;
+	font-size:10px;font-weight:500;letter-spacing:5px;text-transform:uppercase;color:#9a9a9a}
+	.preloader__track{position:relative;width:240px;max-width:60vw;height:1px;
+	background:rgba(0,0,0,.09);overflow:hidden}
+	.preloader__bar{position:absolute;top:0;right:0;bottom:0;left:0;background:#111;
+	transform:scaleX(0);transform-origin:center}
+	.preloader__sheen{position:absolute;top:0;right:0;bottom:0;left:0;
+	background:linear-gradient(90deg,transparent,rgba(0,0,0,.28),transparent);
+	transform:translateX(-100%);animation:preSheen 1.6s ease-in-out infinite}
+	@keyframes preSheen{to{transform:translateX(100%)}}
+	</style>
+	<script>
+		/* Runs before the body is parsed, so the curtain is visible on the very
+		   first frame. Added by JS so a browser without it never sees a curtain
+		   it has no way to dismiss. */
+		document.documentElement.classList.add('js', 'js-loading');
+	</script>
+
+	<link rel="icon" href="assets/images/site/weblogo.png" type="image/png">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700&display=swap" rel="stylesheet"></noscript>
+
+	<!--
+		STYLES — same cleanup as index.html:
+		animate.css / icomoon.css / Font Awesome CDN / flexslider.css
+		removed (unused or replaced by inline SVG icons below).
+	-->
+	<link rel="stylesheet" href="assets/css/preloader.css" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link rel="stylesheet" href="assets/css/preloader.css"></noscript>
+	<link rel="stylesheet" href="assets/css/grid.css" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link rel="stylesheet" href="assets/css/grid.css"></noscript>
+	<link rel="stylesheet" href="assets/css/animations.css" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link rel="stylesheet" href="assets/css/animations.css"></noscript>
+	<link rel="stylesheet" href="assets/css/site-nav.css" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link rel="stylesheet" href="assets/css/site-nav.css"></noscript>
+	<link rel="stylesheet" href="assets/css/resume.css" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link rel="stylesheet" href="assets/css/resume.css"></noscript>
+
+	<script src="assets/js/preloader.js" defer></script>
+</head>
+	<body>
+	<!-- Site-wide loading animation. Styles: assets/css/preloader.css
+	     Behaviour: assets/js/preloader.js -->
+	<div class="preloader" role="status" aria-label="Loading">
+		<span class="preloader__mark">Mengxin Yu</span>
+		<div class="preloader__track">
+			<div class="preloader__bar"></div>
+			<div class="preloader__sheen"></div>
+		</div>
+	</div>
+
+	<div id="colorlib-page">
+
+		<!-- ============ MOBILE TOP BAR ============
+			Identical to index.html. Below 768px it holds the hamburger and
+			the sidebar drops down beneath it. -->
+		<div class="site-bar">
+			<a class="site-bar__logo" href="index.html"><span>MX</span><span>Yu</span></a>
+			<button type="button" class="js-colorlib-nav-toggle colorlib-nav-toggle"
+			        aria-label="Toggle menu" aria-expanded="false" aria-controls="colorlib-aside"><i></i></button>
+		</div>
+
+		<aside id="colorlib-aside" role="complementary" class="js-fullheight">
+			<h1 id="colorlib-logo"><a href="index.html"><span>MX</span><span>Yu</span></a></h1>
+			<nav id="colorlib-main-menu" role="navigation">
+				<ul>
+					<li><a href="index.html">Work</a></li>
+					<li><a href="about.html">About Me</a></li>
+					<li class="colorlib-active"><a href="resume.html">Resume</a></li>
+					
+					
+				</ul>
+			</nav>
+
+			<div class="colorlib-footer">
+				<ul>
+					<li><a href="https://github.com/MengxinYuu" target="_blank" rel="noopener" aria-label="GitHub">
+						<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.42 7.86 10.96.57.1.78-.25.78-.55 0-.27-.01-1.15-.02-2.09-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.7 1.25 3.36.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.73 0c2.18-1.49 3.15-1.18 3.15-1.18.62 1.57.23 2.73.11 3.02.73.8 1.18 1.83 1.18 3.08 0 4.41-2.7 5.38-5.27 5.67.42.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+					</a></li>
+					<li><a href="https://dribbble.com/mengxinyuu" target="_blank" rel="noopener" aria-label="Dribbble">
+						<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12S5.65 23.5 12 23.5 23.5 18.35 23.5 12 18.35.5 12 .5Zm7.6 5.44a10 10 0 0 1 2.2 6.14c-.32-.07-3.5-.71-6.72-.31-.07-.16-.13-.33-.2-.5-.2-.47-.42-.95-.65-1.4 3.55-1.45 5.16-3.5 5.37-3.93ZM12 2.1c2.4 0 4.6.87 6.3 2.31-.18.26-1.6 2.2-5.03 3.5C11.7 5.2 10 3 8.9 1.8A9.9 9.9 0 0 1 12 2.1Zm-4.7 2.5c1.06 1.15 2.7 3.3 4.2 5.94-5.3 1.4-9.98 1.38-10.47 1.38A10 10 0 0 1 7.3 4.6ZM2 12v-.3c.45 0 5.9.08 11.55-1.6.32.63.62 1.27.9 1.9-.16.05-.32.1-.47.16-5.85 1.9-8.96 7.06-9.22 7.5A9.9 9.9 0 0 1 2 12Zm10 9.9a9.9 9.9 0 0 1-6-2c.2-.42 2.6-5.03 9.03-7.3.02 0 .03-.01.05-.02 1.5 3.9 2.1 7.17 2.27 8.14A9.9 9.9 0 0 1 12 21.9Zm7.3-3.4c-.13-.8-.68-3.85-2.1-7.6 3.05-.48 5.72.31 6.05.42a10 10 0 0 1-3.95 7.18Z"/></svg>
+					</a></li>
+					<li><a href="https://www.instagram.com/mengxinyuu/" target="_blank" rel="noopener" aria-label="Instagram">
+						<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07ZM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38A5.9 5.9 0 0 0 .63 4.14c-.3.76-.5 1.64-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.66.66 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.66-.66 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0Zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4Zm6.41-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44Z"/></svg>
+					</a></li>
+					<li><a href="https://www.linkedin.com/in/mengxin-yu-1733b415a/" target="_blank" rel="noopener" aria-label="LinkedIn">
+						<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0ZM7.12 20.45H3.56V9h3.56ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.4v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.26 2.37 4.26 5.46Z"/></svg>
+					</a></li>
+				</ul>
+			</div>
+
+		</aside>
+
+		<div id="colorlib-main">
+			<div class="colorlib-resume">
+
+				<!-- toolbar: language toggle centred, download to the right -->
+				<div class="resume-toolbar">
+					<div class="resume-toggle" role="tablist" aria-label="Resume language" data-lang="en">
+						<span class="resume-toggle__thumb" aria-hidden="true"></span>
+						<button type="button" class="resume-toggle__btn is-active" role="tab"
+						        aria-selected="true" data-lang="en">EN</button>
+						<button type="button" class="resume-toggle__btn" role="tab"
+						        aria-selected="false" data-lang="ch">中文</button>
+					</div>
+
+					<a class="resume-download" id="resumeDownload"
+					   href="assets/cv/CV_En.pdf" download="Mengxin-Yu-CV.pdf" aria-label="Download resume">
+						<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+					</a>
+				</div>
+
+				<!-- viewer: the CV is shown as a rendered page image, not an
+				     embedded PDF viewer. The browser's native PDF viewer forces its
+				     own dark chrome and toolbar (can't be recoloured to #F7F7F7)
+				     and fires its load event unreliably over file://. A plain <img>
+				     lays flat, fills the panel, and has a dependable load event the
+				     preloader already waits on. Download still serves the real PDF. -->
+				<div class="resume-viewer">
+					<p class="resume-viewer__hint" aria-hidden="true">Loading resume…</p>
+					<img class="resume-frame" id="resumeImg" alt="Mengxin Yu — resume"
+					     src="assets/cv/CV_En.png" decoding="async">
+				</div>
+
+				<p class="resume-fallback">
+					Can't see the resume?
+					<a id="resumeFallbackLink" href="assets/cv/CV_En.pdf" target="_blank" rel="noopener">Open it in a new tab</a>.
+				</p>
+
+			</div>
+      </div><!-- /#colorlib-main -->
+    </div><!-- /#colorlib-page -->
+
+	<!--
+		SCRIPTS — same cleanup as index.html: deferred, and
+		flexslider/sticky-kit dropped as unused on this page.
+	-->
+	<script src="assets/js/site.js" defer></script>
+	<script src="assets/js/resume.js" defer></script>
+
+	</body>
+</html>
+

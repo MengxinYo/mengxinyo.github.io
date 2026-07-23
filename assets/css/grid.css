@@ -1,0 +1,100 @@
+/* =========================================================================
+ * grid.css
+ *
+ * Replaces vendor/bootstrap.css on index.html and about.html.
+ *
+ * Those two pages used exactly eight Bootstrap classes — row,
+ * container-fluid, img-responsive, col-md-4/5/6/11, col-sm-6,
+ * col-md-offset-2 and col-md-pull-2 — and were downloading 131KB of
+ * framework to get them. This file is the same grid behaviour in ~2KB.
+ *
+ * Bootstrap 3's 12-column model and 768px / 992px breakpoints are
+ * reproduced exactly, so the existing markup needs no changes.
+ * ========================================================================= */
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.container-fluid {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Bootstrap's float-based row/clearfix. Kept as floats rather than
+   modernised to flex or grid because several rules in home.css and
+   about.css (.blog-entry, .about-img) rely on float behaviour. */
+.row {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.row::before,
+.row::after {
+  display: table;
+  content: " ";
+}
+
+.row::after {
+  clear: both;
+}
+
+/* --- column base ---------------------------------------------------- */
+[class*="col-md-"],
+[class*="col-sm-"] {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Below the smallest breakpoint every column is full width, which is
+   what Bootstrap does with col-md-* / col-sm-* too. */
+[class*="col-md-"],
+[class*="col-sm-"] {
+  width: 100%;
+}
+
+/* --- >= 768px (Bootstrap's `sm`) ------------------------------------ */
+@media (min-width: 768px) {
+  [class*="col-sm-"] {
+    float: left;
+  }
+
+  .col-sm-6 { width: 50%; }
+}
+
+/* --- >= 992px (Bootstrap's `md`) ------------------------------------ */
+@media (min-width: 992px) {
+  [class*="col-md-"] {
+    float: left;
+  }
+
+  .col-md-4  { width: 33.33333333%; }
+  .col-md-5  { width: 41.66666667%; }
+  .col-md-6  { width: 50%; }
+  .col-md-11 { width: 91.66666667%; }
+
+  .col-md-offset-2 { margin-left: 16.66666667%; }
+  .col-md-pull-2   { right: 16.66666667%; }
+}
+
+/* --- images --------------------------------------------------------- */
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* A sensible global default so no image can ever force a horizontal
+   scrollbar — Bootstrap didn't do this, and it was the reason a few
+   wide screenshots overflowed on small screens. */
+img {
+  max-width: 100%;
+}

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--- basic page needs
+        ================================================== -->
+        <meta charset="utf-8">
+        <!-- Without this the page renders at desktop width on phones and
+             every media query below is ignored — it was missing before,
+             which is why this case study had no responsive behaviour. -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TAL Assessment Ecosystem — Mengxin Yu</title>
+        <meta name="description" content="TAL Assessment Ecosystem — system design case study by Mengxin Yu.">
+        <meta name="author" content="Mengxin Yu">
+        <meta name="robots" content="noindex, nofollow">
+
+        <!--
+        	CRITICAL LOADER STYLES — inlined on purpose.
+        
+        	Every ordinary stylesheet link blocks first paint. When the loader was
+        	styled by one, the curtain could not appear until the very resources it
+        	exists to cover had already downloaded — so a slow connection produced a
+        	long blank white screen and *then* a loading animation, which is exactly
+        	backwards. Inlining this means the loader paints on the first frame with
+        	no network dependency at all.
+        
+        	This is only the resting appearance. The exit sequence and reduced-motion
+        	rules live in assets/css/preloader.css, which loads asynchronously below
+        	and is always in place long before the curtain lifts.
+        -->
+        <style>
+        .preloader{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;display:flex;
+        flex-direction:column;align-items:center;justify-content:center;background:#fff;
+        opacity:0;visibility:hidden}
+        .js-loading .preloader{opacity:1;visibility:visible}
+        .preloader__mark{margin-bottom:22px;font-family:"Quicksand",Arial,sans-serif;
+        font-size:10px;font-weight:500;letter-spacing:5px;text-transform:uppercase;color:#9a9a9a}
+        .preloader__track{position:relative;width:240px;max-width:60vw;height:1px;
+        background:rgba(0,0,0,.09);overflow:hidden}
+        .preloader__bar{position:absolute;top:0;right:0;bottom:0;left:0;background:#111;
+        transform:scaleX(0);transform-origin:center}
+        .preloader__sheen{position:absolute;top:0;right:0;bottom:0;left:0;
+        background:linear-gradient(90deg,transparent,rgba(0,0,0,.28),transparent);
+        transform:translateX(-100%);animation:preSheen 1.6s ease-in-out infinite}
+        @keyframes preSheen{to{transform:translateX(100%)}}
+        </style>
+        <script>
+        	/* Runs before the body is parsed, so the curtain is visible on the very
+        	   first frame. Added by JS so a browser without it never sees a curtain
+        	   it has no way to dismiss. */
+        	document.documentElement.classList.add('js', 'js-loading');
+        </script>
+
+        <!--- CSS
+        ================================================== -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"></noscript>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet"></noscript>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@100;200;300&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@100;200;300&display=swap" rel="stylesheet"></noscript>
+        <link rel="stylesheet" href="../assets/css/preloader.css" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link rel="stylesheet" href="../assets/css/preloader.css"></noscript>
+        <link rel="stylesheet" href="../assets/css/project-nav.css" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link rel="stylesheet" href="../assets/css/project-nav.css"></noscript>
+        <link rel="stylesheet" href="../assets/css/tal.css" media="print" onload="this.media='all';this.onload=null">
+		<noscript><link rel="stylesheet" href="../assets/css/tal.css"></noscript>
+
+        <script src="../assets/js/preloader.js" defer></script>
+    </head>
+    <body>
+    <!-- Site-wide loading animation. Styles: assets/css/preloader.css
+         Behaviour: assets/js/preloader.js -->
+    <div class="preloader" role="status" aria-label="Loading">
+        <span class="preloader__mark">Mengxin Yu</span>
+        <div class="preloader__track">
+            <div class="preloader__bar"></div>
+            <div class="preloader__sheen"></div>
+        </div>
+    </div>
+
+        <!-- Shared case-study nav — identical markup in work/houyi.html.
+             Styles: assets/css/project-nav.css · Behaviour: assets/js/project-nav.js -->
+        <header class="proj-nav" id="projNav">
+            <a class="proj-nav__logo" href="../index.html" aria-label="Mengxin Yu — home">
+                <img src="../assets/images/site/weblogo.png" alt="Mengxin Yu">
+            </a>
+            <span class="proj-nav__title">TAL Project</span>
+            <nav class="proj-nav__links" id="projNavLinks" aria-label="Main">
+                <a href="../index.html">Work</a>
+                <a href="../about.html">About Me</a>
+                <a href="../resume.html">Resume</a>
+            </nav>
+            <button class="proj-nav__toggle" id="projNavToggle" type="button"
+                    aria-label="Toggle menu" aria-expanded="false" aria-controls="projNavLinks">
+                <span></span>
+            </button>
+        </header>
+        <div class="content_header">
+            <div class="container">
+            <img width="100%" src="../assets/images/tal/TALHeader.png">
+            </div>
+        </div>
+        <div class="content_notes">
+            <div class="container">
+             <p class="notes">This project launched in March 2020 and has served <b>2 business lines</b> and <b>1,090,000 + students</b> in China.
+             <br>Due to NDA, sensitive data has been modified and design details have been omitted.</p>
+            </div>
+        </div>
+        <div class="content_white">
+            <div class="container">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1 class="title">/ WHO AM I WORKING WITH</h1>
+                    </div> 
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-7">
+                       <h1 class="subtitle">Meer Our Team</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-7">
+                        <p>
+                            <a href=http://en.100tal.com>TAL Education Group</a> is a leading education technology enterprise serving over 30 million users across 42 cities in China. Our team, the Silicon Valley R&D Center, is TAL's first overseas R&D center dedicating to leveraging cognitive science, data science, and human-computer interaction to empower TAL's core business lines.
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-5">
+                        <img width="100%" src="../assets/images/tal/TALlogo.png">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container u-mt-1">
+                <div class="row">
+                    <div class="col-12 col-md-7">
+                       <h1 class="subtitle">Meet Our Stakeholders</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-7"> 
+                        <p>
+                        For this project, we partnered closely with two key TAL sub-brands: <a href=https://www.izhikang.com>Izhikang</a> (200,000+ users) and <a href=https://www.xueersi.com>Xueersi</a> (890,000+ users), both of which provide after-school education and e-learning services across China.
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-5">
+                        <img width="100%" src="../assets/images/tal/logo.png">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container u-mt-1">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                       <h1 class="subtitle">My Role</h1>
+                        <p>
+                        As the sole UX Designer in this project, I led the end-to-end design process from early research through final execution.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="content_grey">
+            <div class="container">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1 class="title">/ THE CHALLENGE</h1>
+                    </div> 
+                </div>
+            </div>
+            <div class="container">
+                 <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1>Four Requirements</h1>
+                        <h2>Break through the traditional assessment</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-10">
+                       <p>
+                       Traditionally, online assessments follow a simple formula: answer questions, and receive a score. But with the rapid evolution of Computerized Adaptive Testing and Personalized Assessment Services, our stakeholders raised the bar on what a modern assessment should deliver:
+                       </p>
+                       <p>
+                       1) Analyze and visualize students' learning competencies instead of their test scores, considering students with identical scores may have vastly different competencies.
+                       <br>
+                       2) Create and track long-term student profiles, enabling self-comparison over time.
+                       <br>
+                       3) Compare learning competencies across time and region, enabling peer comparison.
+                       <br>
+                       4) Provide actionable, follow-up learning strategies so students know exactly how to improve.
+                       </p>
+                       <p>
+                        These new requirements placed heavy demands on data infrastructure — surfacing two critical challenges.
+                       </p>
+                    </div>
+                </div>
+                <div class="row u-mt-0 u-mb-4">
+                   <div class="col-12 col-md-12">
+                        <img width="90%" src="../assets/images/tal/challenge.png">
+                    </div>
+                </div>
+            </div>
+            <div class="container u-mt-1">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1>Two Challenges</h1>
+                        <h2>Ensure consistency and compatibility</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-10">
+                       <p>
+                       1) Data Consistency: The data flow before, during, and after an assessment must remain consistent to preserve analytical integrity. This meant our product needed to fully cover the entire assessment journey, end to end.
+                        <br>
+                       2) System Compatibility: As the central R&D Center, we support multiple business units across TAL. Any solution built for Xueersi and Izhikang needed to be modular enough for seamless integration into other business lines.
+                       </p>
+                    </div>
+                    <div class="col-12 col-md-2" style="text-align: center">
+                        <img width="100%" src="../assets/images/tal/img2.png">
+                    </div>
+                </div>
+            </div>
+            <div class="container u-mt-1">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1>One Goal</h1>
+                        <h2>Build an internal assessment ecosystem in one year</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-10">
+                       <p>
+                       Starting with Izhikang and Xueersi as our first collaboration, our broader ambition was to lay a foundation robust enough to support diverse business lines and user bases. Rather than build a single assessment app or analytics tool, we set out to create a complete ecosystem that could cover the entire assessment lifecycle with a full suite of integrated tools.
+                       </p>
+                    </div>
+                    <div class="col-12 col-md-2" style="text-align: center">
+                        <img width="100%" src="../assets/images/tal/img3.png">
+                     </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content_white">
+            <div class="container">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1 class="title">/ THE SOLUTION</h1>
+                    </div> 
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1>Design Timeline</h1>
+                        <h2>Do what's right, the right way, at the right time</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                      <div class="col-12 col-md-10">
+                          <p>Time for UX research and design was limited, yet both remained essential to sound product decisions. To balance depth with speed, we split our roadmap into two distinct phases:
+                          <br>1) Building the MVP: We invested 6 months in large-scale user research, visiting schools across 7 cities in China and engaging multiple stakeholder groups including instructors, students, parents, and school directors.
+                          <br>2) Agile Iterations: Within each 2-week sprint, we leverage live user data and feedback from released products to drive continuous, evidence-based design improvements.
+                          </p>
+                        <img width="100%" src="../assets/images/tal/process.png"> 
+                    </div>
+                   <div class="col-12 col-md-2">
+                        <img width="100%" src="../assets/images/tal/userresearch.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content_white">
+            <div class="container">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1>Introducing TAL Assessment Ecosystem</h1>
+                        <h2>Design for all types of assessments</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <p>
+                        Extensive early-stage research revealed a simple truth: while assessment scenarios vary widely — some online, others administered in the classroom — the underlying process remains remarkably consistent. To ensure our ecosystem could scale seamlessly across TAL's diverse business lines, we distilled the essential user actions from 10+ assessment scenarios and organized them into three phases, each with its own design goal:
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-10">
+                        <ul>
+                            <li>Before the assessment, <b>instructors need a system</b> built for crafting high-quality assessments.</li>
+                            <li>During the assessment, <b>students need an app</b> that faithfully captures every interaction and response.</li>
+                            <li>After the assessment, <b>stakeholders need a data platform</b> that transforms raw results into meaningful, actionable strategy.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row u-mb-2">
+            <div class="col-12 col-md-12">
+                <img style="width: 100vw" src="../assets/images/tal/Big1.png">
+            </div>
+        </div>
+        
+  
+            
+        
+        <div class="content_grey">
+            <div class="container">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1 class="title">/ BEFORE THE ASSESSMENT</h1>
+                    </div> 
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                   <div class="col-12 col-md-9">
+                        <h1>Introducing PAC Assessment System</h1>
+                        <h2>One-stop service for building better assessments</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <p>
+                        Great assessments begin with great questions — and preparing them has long been a heavy lift for instructors. PAC System was designed to change that: a comprehensive suite of tools that empowers instructors to craft high-quality questions with speed, ease, and confidence.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                     <div class="col-12 col-md-12">
+                        <img width="100%" src="../assets/images/tal/PACbig.png">
+                    </div>
+                </div>
+            </div>
+            <div class="container u-mt-2">
+                <div class="row">
+                   <div class="col-12 col-md-9">
+                        <h1>Tag Questions Easily and Intelligently</h1>
+                        <p>
+                        Accurate tagging is the backbone of question quality. For immediate use, PAC System offers a curated database of 50,000+ pre-tagged questions. And for instructors introducing new, untagged questions, PAC System makes tagging effortless through intuitive interfaces and streamlined workflows.
+                        </p>
+                    </div>
+                     <div class="col-12 col-md-3" style="text-align: center">
+                        <img style="width: 100%" src="../assets/images/tal/PAC2.png">
+                    </div> 
+                </div>
+            </div>
+            <div class="container u-mt-2">
+                <div class="row">
+                   <div class="col-12 col-md-9">
+                        <h1>Build Any Assessment, in a Single Click</h1>
+                        <p>
+                        Different goals call for different assessments, and knowing where to start can be daunting. A placement test? An in-class quiz? Something calibrated for average difficulty, or laser-focused on a single knowledge point? PAC System lets instructors select templates, knowledge components, difficulty levels, and question types — then generates the assessment automatically to match.
+                        </p>
+                    </div> 
+                    <div class="col-12 col-md-3" style="text-align: center">
+                        <img style="width: 100%" src="../assets/images/tal/PAC1.png">
+                    </div>
+                </div>
+            </div>
+            <div class="container u-mt-2">
+                <div class="row">
+                   <div class="col-12 col-md-9">
+                        <h1>Customize Every Detail to Fit Your Needs</h1>
+                        <p>
+                        For instructors seeking a personal touch, PAC System offers rich customization from interface styling to bespoke feedback messaging. With an extensive library of templates and toolkits, every assessment can be shaped to reflect its creator's exact intent.
+                        </p>
+                    </div> 
+                     <div class="col-12 col-md-3" style="text-align: center">
+                        <img style="width: 100%" src="../assets/images/tal/PAC3.png">
+                    </div>
+                </div>
+            </div>
+            <div class="container u-mt-2">
+                <iframe style='width:100%; aspect-ratio: 16 / 9; height:auto;' src="https://www.youtube.com/embed/pwvMMbltQaI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="container u-mt-5">
+                <div class="row">
+                   <div class="col-12 col-md-9">
+                        <h1>Success Metrics & Iteration</h1>
+                        <h2>Good functions, good experiences</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                   <div class="col-12 col-md-12">
+                        <p>
+                        Every two weeks, we conduct heuristic evaluations grounded in Jesse James Garrett's Five Elements of UX and make continuous refinement.
+                        </p>
+                        <img width="100%" src="../assets/images/tal/heuristic.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="content_white">
+            <div class="container">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1 class="title">/ DURING THE ASSESSMENT</h1>
+                    </div> 
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1>Introducing Zhikang Assessment App</h1>
+                        <h2>Engaging students through the assessment experience</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-7">
+                        <p>
+                        Traditional assessments follow a one-way exchange: students receive a paper, answer the questions, and receive a score — with little room for interaction, dialogue, or learning in between.
+                        </p>
+                        <p>
+                           <b>Zhikang Assessment App</b> reimagines this experience as something interactive and alive. Through adaptive testing, immediate feedback, in-test data capture, and interactive score reports, students remain genuinely engaged from the first question to the last.
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-5">
+                        <img width="100%" src="../assets/images/tal/ZhikangBig.png">
+                    </div>
+                </div>
+            </div>
+            <div class="container u-mt-6">
+                <div class="row">
+                   <div class="col-12 col-md-5">
+                        <h1>Empower Students with Preview & Paper Analysis</h1>
+                        <p></p>
+                        <p>A test rarely serves its purpose when students see only the question, with no insight into its intent. Mid-assessment, students often wonder: What knowledge component does this question test? Is it hard, or easy? Why am I stuck — is it this question specifically, is the difficulty simply too high, or do I need more practice with this type of problem?
+                        <br>Zhikang Assessment answers these questions through a thoughtfully designed in-test preview and paper analysis, giving students the full picture before they begin:</p>
+                        <p>
+                            1) Question type.
+                            <br>
+                            2) Tested knowledge components (KC).
+                            <br>
+                            3) Difficulty distribution and analysis.
+                            <br>
+                            4) Average response time.
+                        </p>
+                    </div> 
+                    <div class="col-12 col-md-7">
+                        <img width="100%" src="../assets/images/tal/PaperAnalysis.png">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container u-mt-6">
+                <div class="row">
+                   <div class="col-12 col-md-6">
+                        <h1>Motivate Students with Immediate Feedback & Gamification (Conceptual Feature)</h1>
+                        <p>
+                        1) Deliver immediate in-test feedback: shifting from mere "assessment of learning" toward true "assessment for learning."
+                        <br>
+                        2) Capture students' in-test journaling: recording not just their answers, but how they arrived there, attempts and all.
+                        <br>
+                        3) Motivate through gamification and genuinely engaging assessment mechanics.
+                        </p>
+                    </div> 
+                    <div class="col-12 col-md-6">
+                        <img width="100%" src="../assets/images/tal/ifat.png">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container u-mt-6">
+                <div class="row">
+                   <div class="col-12 col-md-12">
+                        <h1>Engage Students with In-Test Journaling & Interactive Reports</h1>
+                        <p></p>
+                        <p>Evidence of learning rarely lives in the final score — it's found in the attempts, the choices, the moments of struggle along the way. Learning is a process, yet most students are only ever shown the outcome.
+                       </p>
+                        <p>Zhikang Assessment captures that process by inviting students into in-test journaling, then brings their learning to life through an interactive test report. By engaging with the report — clicking through charts, comparing response times, dragging knowledge component nodes into place — students are drawn naturally into analyzing their own performance, building a deeper sense of ownership over their learning.</p>
+                    </div>
+                </div>
+                <div class="row u-mb-2">
+                    <div class="col-12 col-md-12">
+                        <img style="width: 100%" src="../assets/images/tal/scorerrport.png">
+                    </div>
+                </div>
+            </div>
+            <div class="container u-mt-3">
+                <div class="row">
+                   <div class="col-12 col-md-12">
+                       <img style="width: 100%" src="../assets/images/tal/scorereportpresent.png">
+                   </div>
+                </div>
+            </div>
+            <div class="container u-mt-2">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1>Design Process: Zhikang Assessment App</h1>
+                        <h2>How we got there, step by step</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-7">
+                        <p>
+                           I'll use the design process of our interactive test report as an example to demonstrate how we got there step by step.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="container u-mt-2">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1>Step One: Decide What to Show, and How</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <p>
+                           1) Learning scientists defined the foundational data requirements for the report. Our first priority was understanding these requirements deeply, and aligning on a shared vision from the outset.
+                           <br>
+                           2) Students don't know — or care about — academic terminology. So to make the visualization truly student-friendly, we spoke their language instead. For example, we translated the learning scientists' academic term "Level Three Knowledge Components" into something students already recognize: the chapter.
+                           <br>
+                           3) Developers ultimately determine what's feasible to build. Early concepts were shared with the engineering team from day one, striking a healthy balance between design ambition and technical reality.
+                           <br>
+                           4) Weighing what learning scientists needed to convey, what students hoped to understand, and what developers could realistically build, we arrived at a foundational visualization structure.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                     <div class="col-12 col-md-12">
+                        <img width="100%" src="../assets/images/tal/reportdesign.png">
+                    </div>
+                </div>
+            </div>
+            <div class="container u-mt-4">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1>Step Two: Explore Every Path, Then Choose One</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <p>
+                        After we decided on what and how to show, we explored the full solution space, built mockups for each, and identified the strongest candidate through user testing.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                     <div class="col-12 col-md-12">
+                        <img width="90%" src="../assets/images/tal/step2.png">
+                    </div>
+                </div>
+            </div>
+            <div class="container u-mt-4">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1>Step Three: Test, Learn, Refine</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <p>
+                        Guided by insights from user testing, we refined the chosen solution with greater precision and care.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                     <div class="col-12 col-md-2">
+                        <video width="100%" src="../assets/images/tal/drag1.mp4" autoplay loop muted playsinline></video>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <video width="100%" src="../assets/images/tal/drag2.mp4" autoplay loop muted playsinline></video>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <img width="100%" src="../assets/images/tal/insight.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content_grey">
+            <div class="container">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1 class="title">/ AFTER THE ASSESSMENT</h1>
+                    </div> 
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                   <div class="col-12 col-md-8">
+                        <h1>Introducing Tianshu Data Platform</h1>
+                        <h2>Empowering stakeholders with insightful data visualization</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <p>
+                          Tianshu Data Platform turns raw assessment data into meaningful insight. It builds individual student learning profiles, tracks progress over time, constructs learning curves, and generates predictive trajectories — equipping stakeholders, including school directors, with the clarity to shape smarter teaching strategies.
+                        </p>
+                        <p>
+                        Due to an active NDA, this portion of the project cannot be shown in full.
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <img width="100%" src="../assets/images/tal/TianshuBig.png">
+                    </div>
+                </div>
+            </div>
+            <div class="container u-mt-2">
+                <div class="row">
+                   <div class="col-12 col-md-2">
+                        <h1>DESIGN SCHEME (PART)</h1>
+                    </div> 
+                    <div class="col-12 col-md-10" >
+                        <img style="width: 85%" src="../assets/images/tal/Scheme.png">
+                    </div>
+                </div>
+            </div>
+            <div class="container u-mt-2">
+                <div class="row">
+                   <div class="col-12 col-md-2">
+                        <h1>PAGES PREVIEW (PART)</h1>
+                    </div> 
+                    <div class="col-12 col-md-10" >
+                        <img style="width: 100%" src="../assets/images/tal/PagePreview.png">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="../assets/js/project-nav.js" defer></script>
+    </body>
+</html>

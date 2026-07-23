@@ -1,0 +1,48 @@
+/* =======================================================
+ * animations.css
+ *
+ * Minimal replacement for the old vendor "animate.css" file.
+ * animate.css shipped ~130 keyframes and weighed ~71KB, but this
+ * site only ever uses 4 of them (fadeIn, fadeInLeft, fadeInRight,
+ * fadeInUp), triggered by main.js adding these class names as
+ * elements scroll into view. This file defines just those 4,
+ * at a fraction of the size.
+ * ======================================================= */
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.fadeIn { animation-name: fadeIn; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translate3d(0, 40px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.fadeInUp { animation-name: fadeInUp; }
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translate3d(-40px, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.fadeInLeft { animation-name: fadeInLeft; }
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translate3d(40px, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.fadeInRight { animation-name: fadeInRight; }
+
+/* respect users who've asked the OS for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animated {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

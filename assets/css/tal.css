@@ -1,0 +1,338 @@
+/* =========================================================================
+ * tal.css — page styles for work/tal.html
+ *
+ * The header rules that used to sit in this file (.nav / .navbar / .logo /
+ * .box-shadow) have been removed. Two reasons:
+ *   1. The nav is now the shared component in project-nav.css, so every
+ *      case study gets the same header from one source of truth.
+ *   2. Those class names collide head-on with Bootstrap's own `.nav` and
+ *      `.navbar`, which this page loads from a CDN. The header was
+ *      inheriting Bootstrap layout it never asked for.
+ * ========================================================================= */
+
+/* A universal selector that sets font, colour and line-height is expensive
+   and, worse, applies to every element including ones with their own type
+   scale. Scoped to :root/body instead and inherited from there. */
+:root {
+    --tal-gutter: 55px;
+    --tal-accent: #254AD4;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* Images in this case study are wide screenshots; on a narrow phone a
+       stray overflow would otherwise let the whole page pan sideways. */
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.content_header {
+    padding: 150px var(--tal-gutter) 40px;
+}
+
+.content_notes {
+    padding: 0 var(--tal-gutter) 40px;
+}
+
+.content_white {
+    padding: 90px var(--tal-gutter);
+}
+
+.content_grey {
+    background: #f9f9f9;
+    padding: 90px var(--tal-gutter);
+}
+
+/* -------------------------------------------------------------------------
+ * Responsive gutters
+ * The 55px side padding and 90px vertical rhythm are comfortable on a
+ * desktop and cramped-to-absurd on a phone, where they ate roughly a third
+ * of a 375px viewport. These steps pull both back proportionally.
+ * ---------------------------------------------------------------------- */
+@media screen and (max-width: 992px) {
+    :root { --tal-gutter: 32px; }
+
+    .content_header { padding-top: 120px; }
+    .content_white,
+    .content_grey   { padding-top: 64px; padding-bottom: 64px; }
+}
+
+@media screen and (max-width: 768px) {
+    :root { --tal-gutter: 20px; }
+
+    .content_header { padding-top: 96px; padding-bottom: 28px; }
+    .content_notes  { padding-bottom: 28px; }
+    .content_white,
+    .content_grey   { padding-top: 48px; padding-bottom: 48px; }
+}
+
+@media screen and (max-width: 480px) {
+    :root { --tal-gutter: 16px; }
+}
+
+/* -------------------------------------------------------------------------
+ * Vertical rhythm utilities
+ *
+ * The section spacing used to be inline `style="margin-top: 200px"`
+ * attributes. Inline styles beat every stylesheet rule short of
+ * `!important`, so those gaps stayed 200px tall on a phone — roughly a
+ * third of a blank screen between sections. Same values, now as classes,
+ * which lets the scale shrink with the viewport.
+ * ---------------------------------------------------------------------- */
+.u-mt-0 { margin-top: 20px; }
+.u-mt-1 { margin-top: 50px; }
+.u-mt-2 { margin-top: 80px; }
+.u-mt-3 { margin-top: 100px; }
+.u-mt-4 { margin-top: 120px; }
+.u-mt-5 { margin-top: 180px; }
+.u-mt-6 { margin-top: 200px; }
+
+.u-mb-2 { margin-bottom: 80px; }
+.u-mb-4 { margin-bottom: 120px; }
+
+@media screen and (max-width: 992px) {
+    .u-mt-0 { margin-top: 16px; }
+    .u-mt-1 { margin-top: 36px; }
+    .u-mt-2 { margin-top: 56px; }
+    .u-mt-3 { margin-top: 68px; }
+    .u-mt-4 { margin-top: 80px; }
+    .u-mt-5 { margin-top: 104px; }
+    .u-mt-6 { margin-top: 116px; }
+
+    .u-mb-2 { margin-bottom: 56px; }
+    .u-mb-4 { margin-bottom: 80px; }
+}
+
+@media screen and (max-width: 768px) {
+    .u-mt-0 { margin-top: 12px; }
+    .u-mt-1 { margin-top: 28px; }
+    .u-mt-2 { margin-top: 40px; }
+    .u-mt-3 { margin-top: 48px; }
+    .u-mt-4 { margin-top: 56px; }
+    .u-mt-5 { margin-top: 68px; }
+    .u-mt-6 { margin-top: 76px; }
+
+    .u-mb-2 { margin-bottom: 40px; }
+    .u-mb-4 { margin-bottom: 56px; }
+}
+
+h1 {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-style: inherit;
+    font-size: inherit;
+    font-weight: 400;
+    line-height: inherit;
+    vertical-align: baseline;
+    border: 0;
+    font-size: 1.6rem;
+    margin-bottom: .09615em;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: -.025em;
+    line-height: 1.5;
+    color: #000;
+}
+h2 {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-style: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    vertical-align: baseline;
+    border: 0;
+    font-size: 1.5rem;
+    margin-bottom: .5em;
+    font-weight: 300;
+    letter-spacing: -.035em;
+    line-height: 1.5;
+    color: #9ea0a6;
+    margin-bottom: 1.25em;
+}
+p {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-style: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: 2;
+    vertical-align: baseline;
+    border: 0;
+    font-size: 1rem;
+    color: #000;
+    letter-spacing: .025em;
+    line-height: 2;
+    font-weight: 300;
+    margin-bottom: 1.7em;
+}
+b{
+    padding-left:3px;
+    padding-right:3px;
+    font-family: 'Roboto', sans-serif;
+    font-weight:500;
+    color:white;
+    background-color: #254AD4;
+}
+a{
+    color: #254AD4;
+}
+li{
+    color: #000;
+    padding: 0;
+    margin: 0;
+    font-family: 'IBM Plex Serif', serif;
+    font-style: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    vertical-align: baseline;
+    border: 0;
+    font-size: 1.6rem;
+    margin-bottom: .5em;
+    font-weight: 200;
+    letter-spacing: -.035em;
+    line-height: 1.1;
+    margin-bottom: 1.25em;
+}
+.container {
+    align-items: center;
+}
+.quote {
+    padding: 0;
+    margin: 0;
+    font-family: 'IBM Plex Serif', serif;
+    font-style: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: 2;
+    vertical-align: baseline;
+    border: 0;
+    font-size: 1.8rem;
+    color: #9ea0a6;
+    letter-spacing: -.035em;
+    line-height: 2;
+    font-weight: 200;
+    margin-bottom: 1.7em;
+}
+.notes {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-style: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: 2;
+    vertical-align: baseline;
+    border: 0;
+    font-size: 0.8rem;
+    color: #000;
+    letter-spacing: .025em;
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 1.7em;
+}
+.title {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-style: inherit;
+    font-size: inherit;
+    font-weight: 400;
+    line-height: inherit;
+    vertical-align: baseline;
+    border: 0;
+    font-size: 1rem;
+    margin-bottom: 4rem;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: -.025em;
+    line-height: 1.5;
+    color: #254AD4; 
+    
+}
+.subtitle {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-style: inherit;
+    font-size: inherit;
+    font-weight: 400;
+    line-height: inherit;
+    vertical-align: baseline;
+    border: 0;
+    font-size: 1.6rem;
+    margin-bottom: .09615em;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: -.025em;
+    line-height: 1.5;
+    color: #000;
+    
+}
+
+/* -------------------------------------------------------------------------
+ * List reset
+ * The old universal `* { margin: 0 }` flattened these; now that the
+ * universal selector is gone they need resetting explicitly, or the
+ * browser default indent reappears.
+ * ---------------------------------------------------------------------- */
+ul, ol {
+    margin: 0 0 1.25em;
+    padding-left: 1.2em;
+}
+
+/* -------------------------------------------------------------------------
+ * Mobile type scale
+ * The desktop sizes (1.6rem headings, a 1.8rem pull-quote) wrap badly at
+ * phone widths — the pull-quote in particular was breaking to five or six
+ * lines. Stepping the scale down keeps the same visual hierarchy while
+ * letting lines breathe.
+ * ---------------------------------------------------------------------- */
+@media screen and (max-width: 768px) {
+    h1,
+    .subtitle { font-size: 1.3rem; }
+
+    h2 { font-size: 1.2rem; }
+
+    .title {
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+    }
+
+    .quote {
+        font-size: 1.3rem;
+        line-height: 1.7;
+    }
+
+    p { font-size: 0.95rem; }
+}
+
+/* -------------------------------------------------------------------------
+ * Full-bleed images
+ * A couple of images carry an inline `width: 100vw`. 100vw includes the
+ * scrollbar gutter, so on desktop it overflows the viewport by ~15px and
+ * introduces a horizontal scrollbar. Clamping to 100% of the container is
+ * what was actually intended.
+ * ---------------------------------------------------------------------- */
+img[style*="100vw"] {
+    width: 100% !important;
+    max-width: 100%;
+}

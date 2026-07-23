@@ -1,0 +1,194 @@
+/* =========================================================================
+ * preloader.css
+ *
+ * The single loading animation for every page on the site.
+ *
+ * Replaces three unrelated mechanisms that were running before:
+ *   - work/houyi.html   a black curtain with a spinning pink ring, plus
+ *                       the Pace.js library driving a second progress bar
+ *   - index.html        a bespoke "hold the work grid until its images
+ *                       decode" fade
+ *   - everything else   nothing at all
+ *
+ * Design
+ *   A single hairline rule on white. It grows outward from the centre in
+ *   step with real load progress, with a soft highlight travelling along
+ *   it so the animation still reads as alive when progress stalls. When
+ *   loading completes the line runs out to the full width of the viewport
+ *   and the curtain lifts.
+ *
+ *   Everything animates transform and opacity only — both composited on
+ *   the GPU — so the loader never competes with the page it's waiting for.
+ * ========================================================================= */
+
+:root {
+  --pre-bg: #ffffff;
+  --pre-ink: #111111;
+  --pre-track: rgba(0, 0, 0, 0.09);
+  --pre-width: 240px;
+  /* Slow, confident deceleration. Shared by the line growth and the exit
+     so the whole sequence has one sense of motion. */
+  --pre-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--pre-bg);
+
+  /* Hidden unless the inline <head> script has flagged the document as
+     loading. If JavaScript is disabled or fails before that point, the
+     curtain never shows and the page is simply usable. */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.js-loading .preloader {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* --- wordmark -------------------------------------------------------- */
+.preloader__mark {
+  margin-bottom: 22px;
+  font-family: "Quicksand", Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #9a9a9a;
+
+  /* Drifts up into place rather than appearing flat — the only vertical
+     movement in the sequence, which gives the line something to sit
+     against. */
+  opacity: 0;
+  transform: translateY(6px);
+  animation: preMarkIn 0.7s var(--pre-ease) 0.1s forwards;
+}
+
+@keyframes preMarkIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- the line -------------------------------------------------------- */
+.preloader__track {
+  position: relative;
+  width: var(--pre-width);
+  max-width: 60vw;
+  height: 1px;
+  background: var(--pre-track);
+  overflow: hidden;
+}
+
+/* Grows from the centre outward. scaleX against a centre origin keeps
+   this on the compositor; animating `width` would relayout every frame. */
+.preloader__bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--pre-ink);
+  transform: scaleX(0);
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* A highlight sweeping the full track, independent of progress. Without
+   it a slow asset makes the loader look frozen; with it there is always
+   motion, but nothing that misrepresents how far along the load is. */
+.preloader__sheen {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(90deg,
+              transparent 0%,
+              rgba(0, 0, 0, 0.28) 50%,
+              transparent 100%);
+  transform: translateX(-100%);
+  animation: preSheen 1.6s ease-in-out infinite;
+}
+
+@keyframes preSheen {
+  to { transform: translateX(100%); }
+}
+
+/* --- exit ------------------------------------------------------------ */
+/* The line runs out past the edges of the screen, then the curtain fades.
+   Letting it leave *through* the viewport rather than just vanishing is
+   what makes the handover to the page feel deliberate. */
+.preloader.is-done .preloader__track {
+  transition: width 0.62s var(--pre-ease), max-width 0.62s var(--pre-ease);
+  width: 100vw;
+  max-width: 100vw;
+}
+
+.preloader.is-done .preloader__sheen {
+  animation: none;
+  opacity: 0;
+}
+
+.preloader.is-done .preloader__mark {
+  transition: opacity 0.3s ease, transform 0.45s var(--pre-ease);
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.preloader.is-done {
+  transition: opacity 0.45s ease 0.28s, visibility 0s linear 0.73s;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* --- failsafe --------------------------------------------------------
+ * If preloader.js never runs — network error, parse error, blocked
+ * script — nothing would remove the curtain and the site would be a blank
+ * white screen. This hides it unconditionally after 6s using CSS alone,
+ * so a broken script degrades to a slow start rather than a dead page.
+ * ------------------------------------------------------------------- */
+.js-loading .preloader {
+  animation: preFailsafe 0s linear 6s forwards;
+}
+
+@keyframes preFailsafe {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+/* --- reduced motion --------------------------------------------------
+ * The loader still appears and still leaves — it just does so without
+ * travel or looping movement, which is the part that causes trouble for
+ * motion-sensitive users.
+ * ------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .preloader__mark {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .preloader__sheen {
+    animation: none;
+    opacity: 0;
+  }
+
+  .preloader.is-done .preloader__track {
+    transition: none;
+  }
+
+  .preloader.is-done {
+    transition: opacity 0.2s linear, visibility 0s linear 0.2s;
+  }
+}

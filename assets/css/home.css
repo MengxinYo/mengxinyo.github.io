@@ -1,0 +1,880 @@
+/* =========================================================================
+ * home.css — styles unique to index.html
+ * Page shell, sidebar and hamburger live in site-nav.css.
+ * ========================================================================= */
+
+body {
+  font-family: "Quicksand", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(0, 0, 0, 0.7); }
+  @media screen and (max-width: 992px) {
+    body {
+      font-size: 16px; } }
+
+a {
+  color: #F75940;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s; }
+  a:hover, a:active, a:focus {
+    color: #F75940;
+    outline: none;
+    text-decoration: none !important; }
+
+p {
+  margin-bottom: 1.5em; }
+
+b {
+  color: #F75940; }
+
+h1, h2, h3, h4, h5, h6 {
+  color: #000;
+  font-family: "Quicksand", Arial, sans-serif;
+  font-weight: 400;
+  margin: 0 0 30px 0; }
+
+figure {
+  margin-bottom: 2.5em;
+  float: left;
+  width: 100%; }
+  figure figcaption {
+    font-size: 16px;
+    width: 80%;
+    margin: 20px auto 0px auto;
+    color: #b3b3b3;
+    font-style: italic;
+    font-family: "Quicksand", Arial, sans-serif; }
+    @media screen and (max-width: 480px) {
+      figure figcaption {
+        width: 100%; } }
+
+::-webkit-selection {
+  color: #fff;
+  background: #F75940; }
+
+::-moz-selection {
+  color: #fff;
+  background: #F75940; }
+
+::selection {
+  color: #fff;
+  background: #F75940; }
+
+/* Page shell, sidebar, mobile bar and hamburger all live in
+ * assets/css/site-nav.css — shared by index.html and about.html.
+ */
+
+/* ---------------------------------------------------------
+ * 6. SECTION LAYOUT (about / work / services / contact)
+ * --------------------------------------------------------- */
+.colorlib-blog,
+.colorlib-work,
+.colorlib-about,
+.colorlib-services,
+.colorlib-contact {
+  padding-top: 4em;
+  padding-bottom: 5em;
+  clear: both;
+  width: 100%;
+  display: block; }
+  @media screen and (max-width: 768px) {
+    .colorlib-blog,
+    .colorlib-work,
+    .colorlib-about,
+    .colorlib-services,
+    .colorlib-contact {
+      padding-top: 5em;
+      padding-bottom: 8em; } }
+
+.about-img,
+.about-img-2 {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: relative; }
+
+/* ---------------------------------------------------------
+ * 7. HEADINGS
+ * --------------------------------------------------------- */
+.colorlib-heading {
+  font-size: 18px;
+  margin-bottom: 4em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  line-height: 1.8; }
+  .colorlib-heading span {
+    display: block; }
+  @media screen and (max-width: 768px) {
+    .colorlib-heading {
+      margin-bottom: 1em; } }
+
+.heading-meta {
+  margin-bottom: 15px;
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #999999;
+  font-weight: 500;
+  letter-spacing: 5px; }
+
+.about-img {
+  width: 60%;
+  height: 400px; }
+  .about-img .about-img-2 {
+    width: 85% !important;
+    height: 300px;
+    position: absolute;
+    top: 80px;
+    right: -100px;
+    width: 80%;
+    -webkit-box-shadow: 0px 35px 78px -23px rgba(0, 0, 0, 0.33);
+    -moz-box-shadow: 0px 35px 78px -23px rgba(0, 0, 0, 0.33);
+    box-shadow: 0px 35px 78px -23px rgba(0, 0, 0, 0.33); }
+
+.about-desc h3 {
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-weight: 500; }
+
+.fancy-collapse-panel .panel-default > .panel-heading {
+  padding: 0; }
+
+.panel-heading a {
+  padding: 15px 25px;
+  display: block;
+  width: 100%;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background-color: #000;
+  color: #fff;
+  position: relative;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -ms-box-shadow: none !important;
+  -o-box-shadow: none !important;
+  box-shadow: none !important; }
+
+.panel {
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -ms-box-shadow: none !important;
+  -o-box-shadow: none !important;
+  box-shadow: none !important;
+  border: none; }
+
+.panel-heading a:after {
+  font-family: "icomoon";
+  content: "\ea0e";
+  position: absolute;
+  right: 20px;
+  font-size: 20px;
+  font-weight: 400;
+  top: 50%;
+  line-height: 1;
+  margin-top: -10px; }
+
+.panel-heading a.collapsed:after {
+  content: "\ea1c"; }
+
+.panel-heading a.collapsed {
+  background: #fafafa;
+  border: 1px solid #e6e6e6 !important;
+  color: #333333; }
+
+.panel-body {
+  padding: 1.5em;
+  margin-top: 5px;
+  border: 1px solid #e6e6e6 !important; }
+
+.blog-entry {
+  width: 100%;
+  float: left;
+  background: #fff;
+  margin-bottom: 3em; }
+  @media screen and (max-width: 768px) {
+    .blog-entry {
+      margin-bottom: 3em; } }
+  .blog-entry .blog-img {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 25px; }
+    .blog-entry .blog-img img {
+      position: relative;
+      max-width: 100%;
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transform: scale(1);
+      -webkit-transition: 0.3s;
+      -o-transition: 0.3s;
+      transition: 0.3s; }
+  .blog-entry .desc h3 {
+    font-size: 16px;
+    margin-bottom: 25px;
+    line-height: auto;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px; }
+    .blog-entry .desc h3 a {
+      color: #000;
+      text-decoration: none; }
+  .blog-entry .desc span {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.5) !important; }
+    .blog-entry .desc span small i {
+      color: #999999; }
+  .blog-entry .desc .lead {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000; }
+  .blog-entry:hover .blog-img img {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1); }
+
+.overlap {
+  margin-top: 5em;
+  background: #fff;
+  padding: 30px; }
+  @media screen and (max-width: 768px) {
+    .overlap {
+      margin-top: 2em; } }
+
+/* =========================================================================
+ * PROJECT CARDS
+ *
+ * The bug in the mobile screenshot: below 768px the old stylesheet set
+ *   .project .desc { opacity: 1; background: rgba(255,255,255,0.5); }
+ * i.e. it permanently applied the hover overlay, because a touch device
+ * has no hover to reveal it with. A half-opaque white sheet over every
+ * card is exactly what a "pressed" or "selected" state looks like, so all
+ * three cards read as simultaneously selected — and the washed-out
+ * thumbnail underneath was unreadable either way.
+ *
+ * The fix separates the two jobs the overlay was doing:
+ *   - Desktop keeps the dark hover reveal, but it's now gated behind
+ *     `@media (hover: hover)` so it can never latch on a touch screen.
+ *   - Touch/narrow screens get a caption bar over a bottom-up gradient.
+ *     The title is always legible, the image is never dimmed, and nothing
+ *     reads as a selection state.
+ * ========================================================================= */
+.project {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: relative;
+  height: 280px;
+  width: 100%;
+  display: block;
+  margin-bottom: 30px;
+  overflow: hidden;
+  background-color: #ededed;
+  text-decoration: none; }
+  .project .desc {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease;
+    -o-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease; }
+    .project .desc .con {
+      /* was `height: 450px` on a 280px-tall card — the caption block
+         overflowed its own container by 170px, which is why the text sat
+         hard against the top edge instead of reading as a centred panel */
+      padding: 24px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-pack: end;
+      -ms-flex-pack: end;
+      justify-content: flex-end;
+      position: relative;
+      height: 100%; }
+      .project .desc .con .icon {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px; }
+        .project .desc .con .icon span {
+          display: inline;
+          padding-right: 5px; }
+          .project .desc .con .icon span a {
+            color: #cccccc;
+            padding: 5px;
+            background: #333333;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            -ms-border-radius: 4px;
+            border-radius: 4px; }
+        .project .desc .con .icon i {
+          font-size: 16px;
+          color: #cccccc; }
+    .project .desc h3 {
+      font-size: 16px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+      -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+      transition: opacity 0.3s, -webkit-transform 0.3s;
+      -o-transition: transform 0.3s, opacity 0.3s;
+      transition: transform 0.3s, opacity 0.3s;
+      transition: transform 0.3s, opacity 0.3s, -webkit-transform 0.3s;
+      -webkit-transform: translate3d(0, -15px, 0);
+      transform: translate3d(0, -15px, 0);
+      margin-bottom: 15px; }
+      .project .desc h3 a {
+        color: #fff; }
+    .project .desc span {
+      display: block;
+      color: #999999;
+      font-size: 13px;
+      -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+      -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+      transition: opacity 0.3s, -webkit-transform 0.3s;
+      -o-transition: transform 0.3s, opacity 0.3s;
+      transition: transform 0.3s, opacity 0.3s;
+      transition: transform 0.3s, opacity 0.3s, -webkit-transform 0.3s;
+      -webkit-transform: translate3d(0, 15px, 0);
+      transform: translate3d(0, 15px, 0); }
+      .project .desc span a {
+        color: #000; }
+
+/* --- Desktop: dark overlay on hover ------------------------------------
+ * `@media (hover: hover)` is the important part. It scopes the whole
+ * hover treatment to devices with a real pointer, so a phone can never
+ * end up stuck in the hovered state after a tap. */
+@media (hover: hover) and (pointer: fine) {
+  .project:hover .desc,
+  .project:focus-within .desc {
+    opacity: 1; }
+    .project:hover .desc h3,
+    .project:focus-within .desc h3 {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0); }
+    .project:hover .desc span,
+    .project:focus-within .desc span {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0); } }
+
+/* --- Touch & narrow screens: permanent caption over a gradient ---------
+ * No hover, so the caption is simply always there. A gradient scrim
+ * (transparent at the top, dark at the bottom) keeps white text readable
+ * without veiling the artwork, and it can't be mistaken for a selection
+ * state the way the old flat 50% white sheet was. */
+@media (hover: none), (pointer: coarse), screen and (max-width: 768px) {
+  .project {
+    height: 240px; }
+  .project .desc {
+    top: auto;
+    opacity: 1;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), color-stop(55%, rgba(0, 0, 0, 0.55)), to(rgba(0, 0, 0, 0.82)));
+    background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 55%, rgba(0, 0, 0, 0.82) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 55%, rgba(0, 0, 0, 0.82) 100%); }
+    .project .desc .con {
+      padding: 20px; }
+    .project .desc h3 {
+      font-size: 15px;
+      margin-bottom: 6px;
+      color: #fff;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0); }
+      .project .desc h3 a {
+        color: #fff; }
+    .project .desc span {
+      color: rgba(255, 255, 255, 0.85);
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0); }
+
+  /* Genuine press feedback, so a tap now reads as a tap. This is the
+     state the cards were previously stuck in permanently. */
+  .project:active {
+    -webkit-transform: scale(0.985);
+    transform: scale(0.985);
+    -webkit-transition: -webkit-transform 0.12s ease;
+    transition: transform 0.12s ease; } }
+
+/* One card is a placeholder with no link ("Under Construction"), so it
+   shouldn't offer a pointer or a press state that goes nowhere. */
+.project.is-placeholder {
+  cursor: default; }
+  .project.is-placeholder:active {
+    -webkit-transform: none;
+    transform: none; }
+
+.project-desc h2 {
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px; }
+
+.project-desc span {
+  display: block;
+  color: #666666;
+  font-size: 13px;
+  margin-bottom: 15px; }
+  .project-desc span a {
+    color: #666666; }
+
+.project-desc .icon span {
+  display: inline;
+  padding-right: 5px; }
+
+.project-desc .btn-download {
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 400;
+  text-decoration: underline; }
+
+.colorlib-lead {
+  font-size: 18px;
+  line-height: 1.5; }
+
+/* ---------------------------------------------------------
+ * 8. CONTACT / SOCIAL
+ * --------------------------------------------------------- */
+#get-in-touch {
+  padding: 2em; }
+  #get-in-touch .btn-learn {
+    padding: 15px 30px !important;
+    font-size: 13px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    border-radius: 30px; }
+
+.colorlib-social {
+  padding: 0;
+  margin: 0;
+  text-align: center; }
+  .colorlib-social li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: -moz-inline-stack;
+    display: inline-block;
+    zoom: 1;
+    *display: inline; }
+    .colorlib-social li a {
+      font-size: 22px;
+      color: #000;
+      padding: 10px;
+      display: -moz-inline-stack;
+      display: inline-block;
+      zoom: 1;
+      *display: inline;
+      -webkit-border-radius: 7px;
+      -moz-border-radius: 7px;
+      -ms-border-radius: 7px;
+      border-radius: 7px; }
+      @media screen and (max-width: 768px) {
+        .colorlib-social li a {
+          padding: 10px 8px; } }
+      .colorlib-social li a:hover {
+        color: #F75940; }
+      .colorlib-social li a:hover, .colorlib-social li a:active, .colorlib-social li a:focus {
+        outline: none;
+        text-decoration: none;
+        color: #F75940; }
+
+#map {
+  width: 100%;
+  height: 700px; }
+  @media screen and (max-width: 768px) {
+    #map {
+      height: 200px; } }
+
+.colorlib-more-contact {
+  background: #fafafa;
+  border: 1px solid red; }
+
+/* ---------------------------------------------------------
+ * 9. FEATURE BLOCKS
+ * --------------------------------------------------------- */
+.colorlib-feature {
+  text-align: left;
+  width: 100%;
+  float: left;
+  margin-bottom: 40px;
+  position: relative; }
+  .colorlib-feature .colorlib-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    display: table;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.03);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px; }
+    .colorlib-feature .colorlib-icon i {
+      display: table-cell;
+      vertical-align: middle;
+      color: #F75940;
+      font-size: 40px;
+      height: 100px; }
+      @media screen and (max-width: 1200px) {
+        .colorlib-feature .colorlib-icon i {
+          font-size: 40px; } }
+  .colorlib-feature .colorlib-text {
+    padding-left: 120px;
+    width: 100%; }
+    .colorlib-feature .colorlib-text h2, .colorlib-feature .colorlib-text h3 {
+      margin: 0;
+      padding: 0; }
+    .colorlib-feature .colorlib-text h3 {
+      font-weight: 500;
+      margin-bottom: 20px;
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase; }
+  .colorlib-feature.colorlib-feature-sm .colorlib-text {
+    margin-top: 30px; }
+  .colorlib-feature.colorlib-feature-sm .colorlib-icon i {
+    color: #F75940;
+    font-size: 40px; }
+    @media screen and (max-width: 1200px) {
+      .colorlib-feature.colorlib-feature-sm .colorlib-icon i {
+        font-size: 28px; } }
+
+.colorlib-feature-lg .colorlib-text h2, .colorlib-feature-lg .colorlib-text h3 {
+  margin: 0;
+  padding: 0; }
+
+.colorlib-feature-lg .colorlib-text h3 {
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 14px;
+  letter-spacing: .2em;
+  text-transform: uppercase; }
+
+.colorlib-bg-color {
+  background: #fafafa;
+  position: relative; }
+
+.pagination {
+  padding: 0; }
+  .pagination li {
+    margin: 2px; }
+    .pagination li a {
+      color: #000;
+      background: transparent;
+      color: #000;
+      margin: 2px;
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      -ms-border-radius: 0;
+      border-radius: 0; }
+      .pagination li a:first-child {
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        -ms-border-radius: 2px;
+        border-radius: 2px; }
+      .pagination li a:hover, .pagination li a:focus {
+        background: #F75940;
+        color: #fff;
+        border: 1px solid #F75940; }
+      @media screen and (max-width: 768px) {
+        .pagination li a {
+          padding: 7px 15px; } }
+    .pagination li.active a {
+      background: #F75940;
+      border: 1px solid #F75940 !important; }
+      .pagination li.active a:hover, .pagination li.active a:focus {
+        background: #F75940;
+        color: #fff;
+        border: 1px solid #F75940 !important; }
+
+.btn {
+  margin-right: 4px;
+  margin-bottom: 4px;
+  font-family: "Quicksand", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  padding: 8px 15px !important; }
+  .btn.btn-sm {
+    padding: 4px 15px !important; }
+  .btn.btn-md {
+    padding: 8px 20px !important; }
+  .btn.btn-lg {
+    padding: 18px 36px !important; }
+  .btn:hover, .btn:active, .btn:focus {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline: none !important; }
+
+.btn-primary {
+  background: #F75940;
+  color: #fff;
+  border: 2px solid #F75940; }
+  .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background: #f86e58 !important;
+    border-color: #f86e58 !important; }
+  .btn-primary.btn-outline {
+    background: transparent;
+    color: #F75940;
+    border: 2px solid #F75940; }
+    .btn-primary.btn-outline:hover, .btn-primary.btn-outline:focus, .btn-primary.btn-outline:active {
+      background: #F75940;
+      color: #fff; }
+
+.btn-success {
+  background: #5cb85c;
+  color: #fff;
+  border: 2px solid #5cb85c; }
+  .btn-success:hover, .btn-success:focus, .btn-success:active {
+    background: #4cae4c !important;
+    border-color: #4cae4c !important; }
+  .btn-success.btn-outline {
+    background: transparent;
+    color: #5cb85c;
+    border: 2px solid #5cb85c; }
+    .btn-success.btn-outline:hover, .btn-success.btn-outline:focus, .btn-success.btn-outline:active {
+      background: #5cb85c;
+      color: #fff; }
+
+.btn-info {
+  background: #5bc0de;
+  color: #fff;
+  border: 2px solid #5bc0de; }
+  .btn-info:hover, .btn-info:focus, .btn-info:active {
+    background: #46b8da !important;
+    border-color: #46b8da !important; }
+  .btn-info.btn-outline {
+    background: transparent;
+    color: #5bc0de;
+    border: 2px solid #5bc0de; }
+    .btn-info.btn-outline:hover, .btn-info.btn-outline:focus, .btn-info.btn-outline:active {
+      background: #5bc0de;
+      color: #fff; }
+
+.btn-warning {
+  background: #f0ad4e;
+  color: #fff;
+  border: 2px solid #f0ad4e; }
+  .btn-warning:hover, .btn-warning:focus, .btn-warning:active {
+    background: #eea236 !important;
+    border-color: #eea236 !important; }
+  .btn-warning.btn-outline {
+    background: transparent;
+    color: #f0ad4e;
+    border: 2px solid #f0ad4e; }
+    .btn-warning.btn-outline:hover, .btn-warning.btn-outline:focus, .btn-warning.btn-outline:active {
+      background: #f0ad4e;
+      color: #fff; }
+
+.btn-danger {
+  background: #d9534f;
+  color: #fff;
+  border: 2px solid #d9534f; }
+  .btn-danger:hover, .btn-danger:focus, .btn-danger:active {
+    background: #d43f3a !important;
+    border-color: #d43f3a !important; }
+  .btn-danger.btn-outline {
+    background: transparent;
+    color: #d9534f;
+    border: 2px solid #d9534f; }
+    .btn-danger.btn-outline:hover, .btn-danger.btn-outline:focus, .btn-danger.btn-outline:active {
+      background: #d9534f;
+      color: #fff; }
+
+.btn-outline {
+  background: none;
+  border: 2px solid gray;
+  font-size: 16px;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s; }
+  .btn-outline:hover, .btn-outline:focus, .btn-outline:active {
+    -webkit-box-shadow: none;
+    box-shadow: none; }
+
+.form-control {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  height: 54px;
+  font-size: 16px;
+  font-weight: 400;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0; }
+  .form-control:active, .form-control:focus {
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-color: #F75940; }
+
+#message {
+  height: 130px; }
+
+/* ---------------------------------------------------------
+ * 11. RESPONSIVE OVERRIDES
+ * --------------------------------------------------------- */
+@media screen and (max-width: 480px) {
+  .col-xxs-12 {
+    float: none;
+    width: 100%; } }
+
+.row-bottom-padded-lg {
+  padding-bottom: 7em; }
+  @media screen and (max-width: 768px) {
+    .row-bottom-padded-lg {
+      padding-bottom: 1em; } }
+
+.row-bottom-padded-md {
+  padding-bottom: 4em; }
+  @media screen and (max-width: 768px) {
+    .row-bottom-padded-md {
+      padding-bottom: 1em; } }
+
+.row-bottom-padded-sm {
+  padding-bottom: 1em; }
+  @media screen and (max-width: 768px) {
+    .row-bottom-padded-sm {
+      padding-bottom: 1em; } }
+
+.col-padding {
+  padding: 10px !important; }
+
+/* (The blanket `.js .animate-box { opacity: 0 }` that used to sit here is
+ * superseded by the more precise rules in the COORDINATED FIRST PAINT
+ * block at the end of this file, which exempt the work grid.)
+ */
+
+#sticky_item {
+  overflow: hidden;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s; }
+  #sticky_item.is_stuck {
+    margin-top: 10px; }
+
+@media screen and (max-width: 992px) {
+  .sticky-parent {
+    clear: both;
+    height: inherit !important;
+    float: left;
+    padding-top: 30px; } }
+/* -------------------------------------------------------------------------
+ * The card IS the link
+ *
+ * Previously only the title text was clickable (it was the sole <a> on
+ * the card, wrapped in an <h3>), so most of the tile did nothing. The
+ * whole `.project` is now an <a> element, which makes the entire card a
+ * real link — clickable edge to edge, keyboard focusable, middle-click
+ * and "open in new tab" both work, and screen readers announce it once
+ * rather than reading a caption with a stray link inside it.
+ * ---------------------------------------------------------------------- */
+a.project {
+  cursor: pointer; }
+
+/* No visible ring on mouse click. `:focus-visible` fires only for
+   keyboard navigation, where the ring is genuinely needed — and it's a
+   neutral dark ring rather than the orange accent, which read as an
+   error state against the artwork. */
+.project:focus {
+  outline: none; }
+
+.project:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.55);
+  outline-offset: 3px; }
+
+.project h3 {
+  color: #fff; }
+
+
+/* =========================================================================
+ * WORK GRID ENTRANCE
+ *
+ * The cards stay hidden while the loading curtain is up, then rise into
+ * place as it lifts. `js-loading` / `js-loaded` are owned by
+ * assets/js/preloader.js, which only flips to `js-loaded` once the card
+ * artwork can actually be painted — so the grid always arrives as one
+ * composed piece rather than card by card.
+ *
+ * `.js-loading` is only ever set by JavaScript. If JS is off or throws,
+ * these rules never apply and the grid renders immediately.
+ * ========================================================================= */
+.js-loading .colorlib-work .project {
+  opacity: 0; }
+
+.js-loaded .colorlib-work .project {
+  opacity: 1;
+  -webkit-animation: fadeInUp 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+
+/* The heading shouldn't wait on artwork — it has no images to load and
+   holding it back would leave the page looking empty for longer. */
+.js-loading .colorlib-work .colorlib-heading,
+.js-loading .colorlib-work .heading-meta {
+  opacity: 1; }
+
+/* Below the fold the scroll observer takes over: hide until revealed. */
+.js .animate-box:not(.animated) {
+  opacity: 0; }
+
+/* The work grid opts out entirely.
+ *
+ * This was the cause of the flicker. Each card sits inside an
+ * `.animate-box` wrapper, so the card was being faded in twice by two
+ * independent mechanisms: the IntersectionObserver animated the wrapper
+ * the moment it was observed, and the load coordinator animated the card
+ * itself once the images arrived. Two overlapping fades on nested
+ * elements, starting at different times, read as a flicker.
+ *
+ * site.js no longer observes anything inside .colorlib-work, and these
+ * wrappers stay visible — the card's own reveal is the only animation. */
+.js .colorlib-work .animate-box,
+.js .colorlib-work .animate-box:not(.animated) {
+  opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js-loaded .colorlib-work .project {
+    -webkit-animation: none;
+    animation: none; }
+}

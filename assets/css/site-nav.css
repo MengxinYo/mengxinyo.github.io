@@ -1,0 +1,465 @@
+/* =========================================================================
+ * site-nav.css
+ *
+ * The sidebar + mobile navigation for the two top-level pages
+ * (index.html, about.html).
+ *
+ * This file used to exist twice: home.css and about.css each carried a
+ * byte-for-byte copy of ~440 lines of sidebar rules, so any nav tweak had
+ * to be made in two places and inevitably drifted. Both copies are gone;
+ * this is now the only definition.
+ *
+ * Layout model
+ *   > 768px  Fixed sidebar down the left, content column to its right.
+ *            Unchanged from the original design.
+ *   <= 768px The sidebar becomes a full-width panel that DROPS DOWN from a
+ *            slim fixed top bar. Previously it slid in from the left and
+ *            shoved the entire page sideways, which is awkward one-handed
+ *            and caused a horizontal scroll on narrow screens.
+ * ========================================================================= */
+
+:root {
+  --nav-accent: #F75940;
+  --nav-bar-height: 58px;
+  --nav-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* -------------------------------------------------------------------------
+ * 1. Page shell
+ * ---------------------------------------------------------------------- */
+#colorlib-page {
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* -------------------------------------------------------------------------
+ * 2. Sidebar (desktop)
+ * ---------------------------------------------------------------------- */
+#colorlib-aside {
+  padding: 3em 3em 40px;
+  width: 20%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  z-index: 1001;
+  background: #fff;
+  transition: transform 0.4s var(--nav-ease);
+}
+
+@media screen and (max-width: 1200px) {
+  #colorlib-aside { width: 30%; }
+}
+
+#colorlib-aside #colorlib-logo {
+  text-align: right;
+  font-weight: 400;
+  font-size: 22px;
+  text-transform: uppercase;
+  margin-bottom: 3em;
+  display: block;
+  width: 100%;
+}
+
+/* A true square: fixed equal width and height with the two lines centred
+   inside, rather than a padded inline-block whose proportions drift with
+   the font. */
+#colorlib-aside #colorlib-logo a {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  background: #000;
+  color: #fff;
+  font-size: 20px;
+  line-height: 1.3;
+  /* Without this the browser's default link underline draws across both
+     letter pairs. */
+  text-decoration: none;
+}
+
+#colorlib-aside #colorlib-logo a:hover,
+#colorlib-aside #colorlib-logo a:focus {
+  text-decoration: none;
+}
+
+#colorlib-aside #colorlib-logo a span {
+  display: block;
+  letter-spacing: 6px;
+  /* letter-spacing appends a trailing gap after the final glyph, which
+     drags the pair visually left of centre; the matching indent puts it
+     back. */
+  text-indent: 6px;
+  text-decoration: none;
+}
+
+/* --- menu ---------------------------------------------------------- */
+#colorlib-aside #colorlib-main-menu {
+  margin-bottom: 3em;
+}
+
+#colorlib-aside #colorlib-main-menu ul {
+  text-align: right;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#colorlib-aside #colorlib-main-menu ul li {
+  /* The rhythm between items now comes entirely from this margin. It
+     used to come from 10px of vertical padding on the link itself, which
+     enlarged each link's hit area into a band well below its text. */
+  margin: 0 0 22px 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#colorlib-aside #colorlib-main-menu ul li a {
+  position: relative;
+  display: inline-block;
+  /* Grey by default, black on hover — the menu should sit quietly behind
+     the work, not compete with it. */
+  color: rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+  padding: 0;
+  font-family: "Quicksand", Arial, sans-serif;
+  transition: color 0.3s var(--nav-ease);
+}
+
+/* Underline wipes in from the right, matching the sidebar's right-aligned
+   text. The case-study nav uses the same affordance mirrored. */
+#colorlib-aside #colorlib-main-menu ul li a::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  background-color: #000;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#colorlib-aside #colorlib-main-menu ul li a:hover,
+#colorlib-aside #colorlib-main-menu ul li a:focus {
+  color: #000;
+}
+
+#colorlib-aside #colorlib-main-menu ul li a:hover::after,
+#colorlib-aside #colorlib-main-menu ul li a:focus::after {
+  transform: scaleX(1);
+}
+
+#colorlib-aside #colorlib-main-menu ul li.colorlib-active a {
+  color: #000;
+}
+
+#colorlib-aside #colorlib-main-menu ul li.colorlib-active a::after {
+  transform: scaleX(1);
+}
+
+/* --- footer / social ----------------------------------------------- */
+/* Pinned to the bottom of the sidebar with 40px of clearance, rather
+   than floating directly under the menu. */
+#colorlib-aside .colorlib-footer {
+  position: absolute;
+  bottom: 40px;
+  right: 1.5em;
+  left: 1.5em;
+  padding: 0 20px;
+  text-align: right;
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+#colorlib-aside .colorlib-footer ul {
+  padding: 0;
+  margin: 0 0 20px 0;
+  list-style: none;
+}
+
+#colorlib-aside .colorlib-footer ul li {
+  display: inline-block;
+  margin-left: 12px;
+  list-style: none;
+}
+
+#colorlib-aside .colorlib-footer ul li a {
+  display: inline-flex;
+  color: #000;
+  opacity: 0.75;
+  transition: opacity 0.25s var(--nav-ease), color 0.25s var(--nav-ease);
+}
+
+#colorlib-aside .colorlib-footer ul li a:hover,
+#colorlib-aside .colorlib-footer ul li a:focus {
+  color: var(--nav-accent);
+  opacity: 1;
+}
+
+/* -------------------------------------------------------------------------
+ * 3. Content column (desktop)
+ * ---------------------------------------------------------------------- */
+#colorlib-main {
+  width: 80%;
+  float: right;
+}
+
+@media screen and (max-width: 1200px) {
+  #colorlib-main { width: 70%; }
+}
+
+/* -------------------------------------------------------------------------
+ * 4. Mobile top bar
+ *
+ * Only rendered below the breakpoint. It holds the logo and the hamburger
+ * so that the panel underneath has nothing pinned to it and can animate
+ * its own height freely.
+ * ---------------------------------------------------------------------- */
+.site-bar {
+  display: none; /* desktop */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1002;
+  height: var(--nav-bar-height);
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  backdrop-filter: saturate(180%) blur(12px);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.08);
+}
+
+.site-bar__logo {
+  display: inline-block;
+  padding: 5px 9px;
+  font-size: 13px;
+  line-height: 1.15;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  background: #000;
+  text-decoration: none;
+}
+
+.site-bar__logo span {
+  display: block;
+}
+
+/* -------------------------------------------------------------------------
+ * 5. Hamburger
+ * ---------------------------------------------------------------------- */
+.colorlib-nav-toggle {
+  display: none; /* desktop */
+  position: relative;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.colorlib-nav-toggle i,
+.colorlib-nav-toggle i::before,
+.colorlib-nav-toggle i::after {
+  position: absolute;
+  left: 50%;
+  width: 26px;
+  height: 2px;
+  margin-left: -13px;
+  background: #000;
+  transition: transform 0.35s var(--nav-ease),
+              background 0.2s linear,
+              top 0.35s var(--nav-ease);
+}
+
+.colorlib-nav-toggle i {
+  top: 50%;
+  margin-top: -1px;
+  display: block;
+}
+
+.colorlib-nav-toggle i::before,
+.colorlib-nav-toggle i::after {
+  content: '';
+  margin-left: -13px;
+}
+
+.colorlib-nav-toggle i::before { top: -8px; }
+.colorlib-nav-toggle i::after  { top: 8px; }
+
+.colorlib-nav-toggle.active i {
+  background: transparent;
+}
+
+.colorlib-nav-toggle.active i::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.colorlib-nav-toggle.active i::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+/* -------------------------------------------------------------------------
+ * 6. Mobile layout — the drop-down panel
+ * ---------------------------------------------------------------------- */
+@media screen and (max-width: 768px) {
+
+  .site-bar,
+  .colorlib-nav-toggle {
+    display: flex;
+  }
+
+  #colorlib-main {
+    width: 100%;
+    float: none;
+    padding-top: var(--nav-bar-height);
+  }
+
+  #colorlib-aside {
+    /* Anchored under the bar and revealed by growing its height, so the
+       menu unfolds downward. The old rule translated it in from
+       `translateX(-270px)`; that is what made the panel arrive from the
+       side and drag the page with it. */
+    top: var(--nav-bar-height);
+    bottom: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    transform: none;
+    z-index: 1001;
+
+    max-height: 0;
+    padding: 0 24px;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.09);
+    transition: max-height 0.42s var(--nav-ease),
+                padding 0.42s var(--nav-ease),
+                opacity 0.28s var(--nav-ease),
+                visibility 0s linear 0.42s;
+  }
+
+  /* `body.offcanvas` is the open state, kept from the original markup so
+     the class name in site.js stays meaningful. */
+  body.offcanvas #colorlib-aside {
+    max-height: calc(100vh - var(--nav-bar-height));
+    padding: 24px 24px 32px;
+    overflow-y: auto;
+    opacity: 1;
+    visibility: visible;
+    transition: max-height 0.45s var(--nav-ease),
+                padding 0.45s var(--nav-ease),
+                opacity 0.28s var(--nav-ease) 0.05s,
+                visibility 0s linear 0s;
+  }
+
+  /* The panel has its own bar, so the sidebar's desktop logo is redundant. */
+  #colorlib-aside #colorlib-logo {
+    display: none;
+  }
+
+  /* Left-align the menu on mobile: right-aligned text next to a
+     left-aligned hamburger reads as two unrelated elements. */
+  #colorlib-aside #colorlib-main-menu ul,
+  #colorlib-aside .colorlib-footer {
+    text-align: left;
+  }
+
+  /* The panel's height is animated, so the footer has to sit in normal
+     flow here — absolutely positioning it against a collapsing box would
+     leave it floating over the menu items mid-transition. */
+  #colorlib-aside .colorlib-footer {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    padding: 0;
+  }
+
+  #colorlib-aside #colorlib-main-menu {
+    margin-bottom: 1.5em;
+  }
+
+  #colorlib-aside #colorlib-main-menu ul li {
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+
+    /* Staggered lift-in, same timing as the case-study nav. */
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.3s var(--nav-ease),
+                transform 0.3s var(--nav-ease);
+  }
+
+  #colorlib-aside #colorlib-main-menu ul li:last-child {
+    border-bottom: 0;
+  }
+
+  body.offcanvas #colorlib-aside #colorlib-main-menu ul li {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  body.offcanvas #colorlib-aside #colorlib-main-menu ul li:nth-child(1) { transition-delay: 0.10s; }
+  body.offcanvas #colorlib-aside #colorlib-main-menu ul li:nth-child(2) { transition-delay: 0.16s; }
+  body.offcanvas #colorlib-aside #colorlib-main-menu ul li:nth-child(3) { transition-delay: 0.22s; }
+  body.offcanvas #colorlib-aside #colorlib-main-menu ul li:nth-child(4) { transition-delay: 0.28s; }
+
+  #colorlib-aside #colorlib-main-menu ul li a {
+    display: block;
+    padding: 15px 0;
+    font-size: 15px;
+  }
+
+  #colorlib-aside #colorlib-main-menu ul li a::after {
+    display: none;
+  }
+
+  #colorlib-aside .colorlib-footer ul li {
+    margin: 0 18px 0 0;
+  }
+
+  #colorlib-aside .colorlib-footer ul li a {
+    /* Pad the social icons out to a proper touch target. */
+    padding: 8px 0;
+  }
+}
+
+/* -------------------------------------------------------------------------
+ * 7. Accessibility
+ * ---------------------------------------------------------------------- */
+#colorlib-aside a:focus-visible,
+.site-bar a:focus-visible,
+.colorlib-nav-toggle:focus-visible {
+  outline: 2px solid var(--nav-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #colorlib-aside,
+  #colorlib-aside #colorlib-main-menu ul li,
+  .colorlib-nav-toggle i,
+  .colorlib-nav-toggle i::before,
+  .colorlib-nav-toggle i::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}

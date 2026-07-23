@@ -1,0 +1,344 @@
+/* =========================================================================
+ * project-nav.css
+ *
+ * The single navigation component shared by every case-study page
+ * (work/tal.html, work/houyi.html). Previously TAL and Houyi each shipped
+ * their own bespoke header, which is why they looked and behaved
+ * differently. Both now use the identical markup + this stylesheet, so the
+ * nav is consistent across the whole portfolio.
+ *
+ * Behaviour summary
+ *  - Desktop (>768px): logo left, project title centre, links inline right.
+ *  - Mobile  (<=768px): links collapse into a hamburger; tapping it drops a
+ *    full-width panel DOWN from the top of the viewport (never a sideways
+ *    slide, which is what the homepage used to do).
+ *  - Any page: the bar reveals itself on scroll and fades out ~1.5s after
+ *    scrolling stops. See project-nav.js.
+ *
+ * The component is deliberately namespaced `.proj-nav__*` so it can never
+ * collide with Bootstrap's `.nav` / `.navbar` (the old TAL header used
+ * those class names and was silently fighting Bootstrap for styles).
+ * ========================================================================= */
+
+:root {
+  --proj-nav-height: 72px;
+  --proj-nav-accent: #254AD4;
+  --proj-nav-ink: #333;
+  --proj-nav-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* A true ease-out for the departure: fast at first, then a long settle. */
+  --proj-nav-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* -------------------------------------------------------------------------
+ * 1. The bar
+ * ---------------------------------------------------------------------- */
+.proj-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--proj-nav-height);
+  padding: 0 32px;
+  background: rgba(255, 255, 255, 0.94);
+  /* frosted glass so page content reading through the bar stays legible */
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  backdrop-filter: saturate(180%) blur(12px);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.09);
+  font-family: 'Roboto', 'Quicksand', Arial, sans-serif;
+  letter-spacing: 1.6px;
+
+  /* --- show / hide transition ---
+     Only transform + opacity are animated: both are compositor-only
+     properties, so the motion stays at 60fps and never triggers layout.
+
+     Appearing is quick and snappy (0.28s) — the bar should feel like it's
+     already there the moment you reach for it. Leaving is slower and uses
+     a pure ease-out (0.55s), so it drifts away rather than snapping out
+     of existence. Asymmetric timing like this is what makes an auto-hide
+     feel considered instead of twitchy. */
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 300ms var(--proj-nav-ease-out),
+              opacity 300ms var(--proj-nav-ease-out),
+              box-shadow 300ms linear,
+              background-color 300ms linear;
+  will-change: transform, opacity;
+}
+
+/* Applied by project-nav.js once scrolling has been idle for ~1.5s. */
+.proj-nav.is-hidden {
+  transform: translateY(calc(-1 * var(--proj-nav-height) - 20px));
+  opacity: 0;
+  /* stop the hidden bar swallowing taps meant for the content behind it */
+  pointer-events: none;
+  transition: transform 300ms var(--proj-nav-ease-out),
+              opacity 300ms var(--proj-nav-ease-out),
+              box-shadow 300ms linear;
+}
+
+/* --- Pinned state (at the top of the page) ---
+   At the very top the bar is part of the page rather than something
+   floating over it: no shadow, fully opaque, no blur. It only lifts into
+   a floating "sheet" once content has scrolled underneath it, which is
+   the moment separation actually needs communicating. */
+.proj-nav.is-pinned {
+  background: #fff;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+/* -------------------------------------------------------------------------
+ * 2. Logo / title / links
+ * ---------------------------------------------------------------------- */
+.proj-nav__logo {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  line-height: 0;
+}
+
+.proj-nav__logo img {
+  width: 44px;
+  height: auto;
+  transition: opacity 0.25s var(--proj-nav-ease);
+}
+
+.proj-nav__logo:hover img {
+  opacity: 0.65;
+}
+
+.proj-nav__title {
+  flex: 1 1 auto;
+  text-align: center;
+  font-size: 13.6px;
+  font-weight: 500;
+  letter-spacing: 2.9px;
+  text-transform: uppercase;
+  color: var(--proj-nav-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.proj-nav__links {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 32px;
+}
+
+.proj-nav__links a {
+  position: relative;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--proj-nav-ink);
+  text-decoration: none;
+  padding: 4px 0;
+}
+
+/* Underline that wipes in from the left — same affordance the homepage
+   sidebar links use, so hover feedback feels like one site. */
+.proj-nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--proj-nav-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s var(--proj-nav-ease);
+}
+
+.proj-nav__links a:hover,
+.proj-nav__links a:focus {
+  color: var(--proj-nav-accent);
+}
+
+.proj-nav__links a:hover::after,
+.proj-nav__links a:focus::after {
+  transform: scaleX(1);
+}
+
+/* -------------------------------------------------------------------------
+ * 3. Hamburger button (hidden on desktop)
+ * ---------------------------------------------------------------------- */
+.proj-nav__toggle {
+  display: none; /* desktop */
+  position: relative;
+  flex: 0 0 auto;
+  width: 44px;   /* 44px is the minimum comfortable touch target */
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Three bars built from one span + its two pseudo-elements. */
+.proj-nav__toggle span,
+.proj-nav__toggle span::before,
+.proj-nav__toggle span::after {
+  position: absolute;
+  left: 50%;
+  width: 24px;
+  height: 2px;
+  margin-left: -12px;
+  background: var(--proj-nav-ink);
+  transition: transform 0.35s var(--proj-nav-ease),
+              opacity 0.2s linear,
+              top 0.35s var(--proj-nav-ease);
+}
+
+.proj-nav__toggle span {
+  top: 50%;
+  margin-top: -1px;
+}
+
+.proj-nav__toggle span::before,
+.proj-nav__toggle span::after {
+  content: '';
+  margin-left: -12px;
+}
+
+.proj-nav__toggle span::before { top: -7px; }
+.proj-nav__toggle span::after  { top: 7px; }
+
+/* Hamburger morphs into an X while the panel is open. */
+.proj-nav.is-open .proj-nav__toggle span {
+  background: transparent;
+}
+
+.proj-nav.is-open .proj-nav__toggle span::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.proj-nav.is-open .proj-nav__toggle span::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+/* -------------------------------------------------------------------------
+ * 4. Mobile: links become a panel that drops DOWN from the bar
+ * ---------------------------------------------------------------------- */
+@media screen and (max-width: 768px) {
+  .proj-nav {
+    --proj-nav-height: 60px;
+    padding: 0 16px;
+  }
+
+  .proj-nav__toggle {
+    display: block;
+  }
+
+  .proj-nav__title {
+    text-align: left;
+    padding-left: 12px;
+    font-size: 11.5px;
+    letter-spacing: 1.9px;
+  }
+
+  .proj-nav__links {
+    /* Anchored to the BOTTOM of the bar and revealed by animating its own
+       height, so it unfolds downward over the page instead of sliding in
+       from the side. `position: fixed` keeps it pinned even though the bar
+       itself may be mid-transform. */
+    position: fixed;
+    top: var(--proj-nav-height);
+    left: 0;
+    right: 0;
+    display: block;
+    padding: 0 24px;
+    background: rgba(255, 255, 255, 0.98);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    backdrop-filter: saturate(180%) blur(12px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.4s var(--proj-nav-ease),
+                opacity 0.28s var(--proj-nav-ease),
+                padding 0.4s var(--proj-nav-ease),
+                visibility 0s linear 0.4s;
+  }
+
+  .proj-nav.is-open .proj-nav__links {
+    max-height: 70vh;
+    opacity: 1;
+    visibility: visible;
+    padding: 8px 24px 24px;
+    overflow-y: auto;
+    transition: max-height 0.45s var(--proj-nav-ease),
+                opacity 0.28s var(--proj-nav-ease) 0.05s,
+                padding 0.45s var(--proj-nav-ease),
+                visibility 0s linear 0s;
+  }
+
+  .proj-nav__links a {
+    display: block;
+    padding: 16px 0;
+    font-size: 14.4px;
+    letter-spacing: 2.6px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+
+    /* Each row lifts into place, staggered by :nth-child below — the panel
+       reads as one gesture rather than a block that pops in. */
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.3s var(--proj-nav-ease),
+                transform 0.3s var(--proj-nav-ease);
+  }
+
+  .proj-nav__links a:last-child {
+    border-bottom: 0;
+  }
+
+  .proj-nav__links a::after {
+    display: none; /* the wipe underline is a hover affordance; no hover here */
+  }
+
+  .proj-nav.is-open .proj-nav__links a {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .proj-nav.is-open .proj-nav__links a:nth-child(1) { transition-delay: 0.10s; }
+  .proj-nav.is-open .proj-nav__links a:nth-child(2) { transition-delay: 0.16s; }
+  .proj-nav.is-open .proj-nav__links a:nth-child(3) { transition-delay: 0.22s; }
+  .proj-nav.is-open .proj-nav__links a:nth-child(4) { transition-delay: 0.28s; }
+}
+
+/* -------------------------------------------------------------------------
+ * 5. Accessibility
+ * ---------------------------------------------------------------------- */
+.proj-nav a:focus-visible,
+.proj-nav button:focus-visible {
+  outline: 2px solid var(--proj-nav-accent);
+  outline-offset: 3px;
+}
+
+/* Respect the OS "reduce motion" setting: the nav still shows and hides,
+   it just does so instantly rather than sliding. */
+@media (prefers-reduced-motion: reduce) {
+  .proj-nav,
+  .proj-nav__links,
+  .proj-nav__links a,
+  .proj-nav__toggle span,
+  .proj-nav__toggle span::before,
+  .proj-nav__toggle span::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
