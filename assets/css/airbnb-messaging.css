@@ -42,6 +42,7 @@ body {
 }
 
 img { max-width: 100%; height: auto; display: block; }
+video { max-width: 100%; height: auto; display: block; }
 
 /* -------------------------------------------------------------------------
  * Shell
@@ -116,7 +117,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .am-section-title {
-  margin: 0 0 12px;
+  margin: 0 0 24px;
   font-size: clamp(1.6rem, 2.6vw, 2.1rem);
   font-weight: 400;
   line-height: 1.2;
@@ -126,27 +127,26 @@ img { max-width: 100%; height: auto; display: block; }
 
 .am-subhead {
   margin: 0 0 20px;
-  font-size: 1.05rem;
+  font-size: 1.125rem;
   font-weight: 400;
-  color: rgba(34, 34, 34, 0.68);
+  line-height: 1.7;
+  color: #222222;
 }
 
 .am-body p {
-  margin: 0 0 1.3em;
-  font-size: 1.02rem;
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
   font-weight: 400;
   line-height: 1.7;
-  color: rgba(34, 34, 34, 0.82);
+  color: #222222;
 }
 
 .am-body p:last-child { margin-bottom: 0; }
 
 .am-body b, .am-body strong {
-  color: var(--am-ink);
-  font-weight: 400;
-  text-decoration: underline;
-  text-decoration-color: rgba(255, 56, 92, 0.4);
-  text-underline-offset: 3px;
+  color: #f40060;
+  font-weight: 500;
+  text-decoration: none;
 }
 
 .am-body a {
@@ -169,9 +169,54 @@ img { max-width: 100%; height: auto; display: block; }
   color: rgba(34, 34, 34, 0.55);
 }
 
+/* Overview intro — centered, narrow column, same shape as the Airbnb
+ * Newsroom release-post treatment (centered headline + centered lede). */
+.am-overview-text {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* The Overview screenshot sits below that narrow column but should read
+ * as part of the same block, so it's held to the same width. */
+.am-overview-text + img {
+  max-width: 720px;
+  margin: 32px auto 0;
+}
+
+/* Part 1 / Part 2 section intros — same centered-column treatment as
+ * .am-overview-text, plus a media block held to the same width so the
+ * video reads as part of the same column instead of a full-bleed strip. */
+.am-part-intro {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.am-part-intro .am-subhead {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* .am-eyebrow is a flex container, so it ignores the text-align:center it
+ * inherits here — flex layout only listens to justify-content. Without
+ * this, the eyebrow sits flush left while the heading below it centers. */
+.am-overview-text .am-eyebrow,
+.am-part-intro .am-eyebrow {
+  justify-content: center;
+}
+
+/* Unlike .am-part-intro, the media block is meant to fill the page's
+ * normal content width (.am-wrap), not the narrow text column — a big
+ * screen recording reads better large than boxed to paragraph width. */
+.am-part-media {
+  margin: 40px auto 0;
+}
+
 @media screen and (max-width: 768px) {
   .am-section-title { font-size: 1.4rem; }
-  .am-body p, .am-subhead { font-size: 0.98rem; }
+  .am-body p { font-size: 1.08rem; }
+  .am-subhead { font-size: 1.08rem; }
 }
 
 /* -------------------------------------------------------------------------
@@ -289,6 +334,10 @@ img { max-width: 100%; height: auto; display: block; }
 .am-grid-2--reverse .am-grid-2__text { order: 2; }
 .am-grid-2--reverse .am-grid-2__art  { order: 1; }
 
+.am-grid-2--40-60 {
+  grid-template-columns: 4fr 6fr;
+}
+
 @media screen and (max-width: 900px) {
   .am-grid-2 {
     grid-template-columns: 1fr;
@@ -314,13 +363,17 @@ img { max-width: 100%; height: auto; display: block; }
 
 .am-grid-2 li:last-child { margin-bottom: 0; }
 
+.am-grid-2__art video {
+  border-radius: 24px;
+}
+
 /* -------------------------------------------------------------------------
  * Three-across image grid — image on top, a short label underneath.
  * ---------------------------------------------------------------------- */
 .am-grid-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 40px;
   margin-top: 48px;
 }
 
@@ -339,6 +392,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 .am-grid-3__item h3 {
   margin: 0 0 6px;
+  padding-top: 12px;
   font-size: 1.02rem;
   font-weight: 400;
   color: var(--am-ink);
@@ -350,6 +404,26 @@ img { max-width: 100%; height: auto; display: block; }
   font-weight: 400;
   line-height: 1.55;
   color: rgba(34, 34, 34, 0.68);
+}
+
+/* -------------------------------------------------------------------------
+ * Three-across grid variant — a small fixed-size icon beside its title/body
+ * instead of a wide image on top.
+ * ---------------------------------------------------------------------- */
+.am-grid-3--icon-row .am-grid-3__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.am-grid-3--icon-row .am-grid-3__item img {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+}
+
+.am-grid-3--icon-row .am-grid-3__item h3 {
+  padding-top: 0;
 }
 
 /* -------------------------------------------------------------------------
