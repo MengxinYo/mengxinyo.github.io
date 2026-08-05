@@ -82,12 +82,34 @@ video { max-width: 100%; height: auto; display: block; }
   background: var(--am-tint);
 }
 
+.am-section--dark {
+  padding: 84px 0;
+  background: #000000;
+}
+
+.am-section--dark .am-section-title {
+  color: #ffffff;
+}
+
+.am-section--dark .am-body p {
+  color: #b0b0b0;
+}
+
+.am-section--dark .am-body b,
+.am-section--dark .am-body strong {
+  color: #ff6480;
+}
+
+.am-section--dark .am-note {
+  color: #9c9c9c;
+}
+
 @media screen and (max-width: 992px) {
-  .am-section, .am-section--tint { padding: 60px 0; }
+  .am-section, .am-section--tint, .am-section--dark { padding: 60px 0; }
 }
 
 @media screen and (max-width: 768px) {
-  .am-section, .am-section--tint { padding: 48px 0; }
+  .am-section, .am-section--tint, .am-section--dark { padding: 48px 0; }
 }
 
 /* -------------------------------------------------------------------------
@@ -225,12 +247,12 @@ video { max-width: 100%; height: auto; display: block; }
  * typical Figma marketing hero, translated to this case study.
  * ---------------------------------------------------------------------- */
 .am-hero {
-  padding: 152px 0 72px;
+  padding: 152px 0 0;
   background: #fff;
 }
 
 @media screen and (max-width: 768px) {
-  .am-hero { padding: 100px 0 40px; }
+  .am-hero { padding: 100px 0 0; }
 }
 
 .am-hero__art {
@@ -239,9 +261,10 @@ video { max-width: 100%; height: auto; display: block; }
 
 .am-hero__art img {
   display: inline-block;
+  vertical-align: bottom;
   width: auto;
-  max-width: 100%;
-  max-height: 80vh;
+  max-width: 80%;
+  max-height: 90vh;
   margin: 0 auto;
 }
 
@@ -424,6 +447,8 @@ video { max-width: 100%; height: auto; display: block; }
 
 .am-grid-3--icon-row .am-grid-3__item h3 {
   padding-top: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 /* -------------------------------------------------------------------------

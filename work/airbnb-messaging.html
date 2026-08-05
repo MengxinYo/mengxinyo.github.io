@@ -114,41 +114,40 @@
     <!-- ============================================================
          OVERVIEW
          ============================================================ -->
-    <section class="am-section">
+    <section class="am-section am-section--dark">
         <div class="am-wrap">
-            <div class="am-overview-text">
+            <div class="am-overview-text" style="margin-top: 100px;">
                 <h2 class="am-section-title">Overview</h2>
                 <div class="am-body">
                     <p style="max-width: 700px;">
-                        Every trip on Airbnb begins with a message, over 3 billion of them a year.
-                        It is the one surface every user passes through, whatever product
-                        line brought them there.
-                    </p>
+                        Every trip on Airbnb begins with a message, 3 billion + of them a year.
+                        Messaging is the one surface every user passes through, whatever product
+                        line brought them there. 
                     <p style="max-width: 700px;">
-                        In 2024, as Airbnb moved beyond Homes into Experiences and Services, the
-                        old Messaging had to become something new. As one of two design PoC, I rebuilt Messaging from the ground up, from its core framework to the
+                        In 2024, as Airbnb moved beyond Homes into the more social worlds of Experiences and Services, the
+                        old Messaging had to become something new.
+                    </p>
+                    </p>
+                    <p style="max-width: 700px;"> As one of two Design PoC, I drove the end-to-end rebuild of Airbnb Messaging, from its core framework to the
                         features layered on top, culminating in a flagship launch for the
-                        <b>2024 Airbnb Summer Release</b>.
+                        <b>2024 Airbnb Summer Release</b>
                     </p>
                 </div>
-                <p class="am-note" style="margin-top: 24px;">
-                    Due to an active NDA, some project details have been generalized.
-                </p>
             </div>
-            <img src="../assets/images/messaging/video.png">
         </div>
     </section>
+    <img src="../assets/images/messaging/overview.png">
 
     <!-- ============================================================
          THE CHALLENGE — three pressures (eyebrow: section-level only)
          ============================================================ -->
-    <section class="am-section">
+    <section class="am-section" style="margin-top: 140px;">
         <div class="am-wrap">
             <div class="am-part-intro">
                 <span class="am-eyebrow">/ The Challenge</span>
-                <h2 class="am-section-title">The Messaging at its ceiling</h2>
+                <h2 class="am-section-title">Airbnb Messaging hit its ceiling</h2>
                 <p class="am-subhead" style="max-width: 700px;">
-                    The old Messaging was built for a single kind of trip. As the business grew, three forces
+                    The old Messaging was built for a single use case: a guest and a host talking to complete a home stay. As the business grew, three forces
                 began asking it to carry far more than it was ever meant to hold.
                 </p>
             </div>
@@ -163,7 +162,7 @@
                     <h2 class="am-section-title">01 &nbsp; One person, split across inboxes</h2>
                     <div class="am-body">
                         <p>
-                            A host may also be a guest. A booker may also be a co-traveler. An Airbnb user wears many hats, yet the old system could only ever see one. It split hosting and traveling into separate Inboxes, so a host on their own trip had to jump between the two just to keep up with their own conversations.
+                            A host may also be a guest. A booker may also be a co-traveler. An Airbnb user wears many hats, yet the old system could only ever see one at a time. It split into a Host Inbox and a Guest Inbox, so the user who's hosting and traveling at the same time had to jump between the two just to keep up with their conversations.
                         </p>
                     </div>
                 </div>
@@ -182,17 +181,14 @@
             <div class="am-grid-2">
                 <div class="am-grid-2__art">
                     <div>
-                        <img width="100%" src="../assets/images/messaging/challenge2.png" alt="Messaging scope across Airbnb's business lines">
+                        <img width="100%" src="../assets/images/messaging/challenge2.png" style="max-height: 1010px;">
                     </div>
                 </div>
                 <div class="am-grid-2__text">
                     <h2 class="am-section-title">02 &nbsp; New vision, no room to grow</h2>
                     <div class="am-body">
                         <p>
-                            Messaging already carried Traveling, Hosting, Co-hosting, Superhost, Luxe, and Support.
-                            With Experiences and Services on the way, each bringing its own actions, roles,
-                            and business requirements, the system was about to hit its ceiling. Every new line meant another
-                            bespoke build on a foundation that could not stretch.
+                            Messaging already carried six lines within Homes: Traveling, Hosting, Superhost, Support, Luxe, and Airbnb Official. With Experiences and Services on the way, each demanding new user experiences and business actions, the system was about to hit its ceiling. Every new business line meant another bespoke build on a foundation that could not stretch.
                         </p>
                     </div>
                 </div>
@@ -211,15 +207,14 @@
                             Experiences and Services work differently from Homes. Strangers often gather around a single
                             activity, and everything depends on how well they can talk to one another. Messaging
                             had to stop feeling like a support desk for closing a transaction and start feeling
-                            like a real conversation: engaging, expressive, and built for groups. The old
-                            text-only surface could do none of it.
+                            like a real conversation: engaging, expressive, and built for groups. The old, plain, text-only surface could do none of that.
                         </p>
                     </div>
                 </div>
                 <div class="am-grid-2__art">
                     <div>
                         <!-- PLACEHOLDER: old plain-text thread vs a richer, social one -->
-                        <img width="100%" src="../assets/images/messaging/old.png" alt="From transactional to conversational">
+                        <img width="100%" src="../assets/images/messaging/challenge3.png" alt="From transactional to conversational">
                     </div>
                 </div>
             </div>
@@ -229,37 +224,36 @@
     <!-- ============================================================
          DESIGN GOAL — the hinge (three principles, no per-section labels after)
          ============================================================ -->
-    <section class="am-section">
+    <section class="am-section" style="margin-top: 100px;">
         <div class="am-wrap">
             <div class="am-part-intro">
                 <span class="am-eyebrow">/ Design Goal</span>
-                <h2 class="am-section-title">One system, built to stretch</h2>
+                <h2 class="am-section-title">Building the new Airbnb Messaging</h2>
                 <p class="am-subhead" style="max-width: 700px;">
-                Rather than build a new Messaging for every business line, we designed one foundation for
-                all of them. Three principles shaped it, each answering one of the three pressures head on.
+                Three goals shaped what we built and how we built it.
                 </p>
             </div>
 
-            <div class="am-grid-3 am-grid-3--icon-row" style="margin-top: 40px;">
+            <div class="am-grid-3 am-grid-3--icon-row" style="margin-top: 80px;">
                 <div class="am-grid-3__item">
                     <img src="../assets/images/messaging/Unified.png" alt="Unified">
                     <div class="am-grid-3__text">
                         <h3>Unified</h3>
-                        <p>Every role lives in one Inbox, so a person stays whole no matter how many hats they wear.</p>
+                        <p>To hold every role an Airbnb user plays in one system, we started with the shared blueprint, then made every screen an instance of it.</p>
                     </div>
                 </div>
                 <div class="am-grid-3__item">
                     <img src="../assets/images/messaging/Scalable.png" alt="Scalable">
                     <div class="am-grid-3__text">
                         <h3>Scalable</h3>
-                        <p>One framework that flexes across business lines, identities, and every device Airbnb ships on.</p>
+                        <p>To let one component stretch across every line, we started with its anatomy, then filled it in, fixing what holds and freeing what flexes.</p>
                     </div>
                 </div>
                 <div class="am-grid-3__item">
                     <img src="../assets/images/messaging/Social.png" alt="Social">
                     <div class="am-grid-3__text">
                         <h3>Social</h3>
-                        <p>A surface that behaves like a real conversation: expressive, rich, and built for groups.</p>
+                        <p>To make messaging feel like a real conversation, we started by redefining its design language, then grew every feature from it.</p>
                     </div>
                 </div>
             </div>
@@ -271,7 +265,7 @@
     <!-- ============================================================
          PART 1 · INBOX
          ============================================================ -->
-    <section class="am-section">
+    <section class="am-section--tint" style="margin-top: 100px;">
         <div class="am-wrap">
             <div class="am-part-intro">
                 <span class="am-eyebrow">/ Part 1 — Inbox</span>
@@ -282,7 +276,7 @@
                 </p>
             </div>
 
-            <div class="am-grid-3">
+            <div class="am-grid-3" style="margin-top: 80px;">
                 <div class="am-grid-3__item">
                     <img src="../assets/images/messaging/Inbox1.png" alt="Composer — collapsed">
                     <h3>Split across two inboxes</h3>
@@ -315,7 +309,7 @@
     </section>
 
     <!-- Introducing new Inbox -->
-    <section class="am-section">
+    <section class="am-section--tint">
         <div class="am-wrap">
             <div class="am-part-intro">
                 <h2 class="am-section-title">Introducing new Airbnb Inbox</h2>
@@ -332,7 +326,7 @@
     </section>
 
     <!-- Inbox structure -->
-     <section class="am-section">
+     <section class="am-section--tint">
         <div class="am-wrap">
             <h2 class="am-section-title">Rebuild the structure for the unified Inbox</h2>
             <p class="am-subhead" style="max-width: 700px;">
@@ -344,7 +338,7 @@
     </section>
   
     <!-- Caterpillar navigation -->
-    <section class="am-section">
+    <section class="am-section--tint">
         <div class="am-wrap">
             <h2 class="am-section-title">The caterpillar navigation</h2>
             <p class="am-subhead" style="max-width: 800px;">
@@ -357,7 +351,7 @@
         </div>
     </section>
     <!-- Rich media -->
-    <section class="am-section">
+    <section class="am-section--tint">
         <div class="am-wrap">
             <h2 class="am-section-title">An Inbox card for every business</h2>
             <p class="am-subhead" style="max-width: 800px;">
@@ -373,7 +367,7 @@
     <!-- ============================================================
          PART 2 · THREAD
          ============================================================ -->
-    <section class="am-section">
+    <section class="am-section" style="margin-top: 100px;">
         <div class="am-wrap">
             <div class="am-part-intro">
                 <span class="am-eyebrow">/ Part 2 — Thread</span>
@@ -499,7 +493,7 @@
     <!-- ============================================================
          ★ ACTION CARD — centerpiece deep dive
          ============================================================ -->
-    <section class="am-section">
+    <section class="am-section" style="margin-top: 100px;">
         <div class="am-wrap">
             <span class="am-eyebrow">/ Deep Dive — Action Cards</span>
             <h2 class="am-section-title">Sending a thing, not just a message</h2>
