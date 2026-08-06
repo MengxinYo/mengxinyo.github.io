@@ -100,10 +100,6 @@ video { max-width: 100%; height: auto; display: block; }
   color: #ff6480;
 }
 
-.am-section--dark .am-note {
-  color: #9c9c9c;
-}
-
 @media screen and (max-width: 992px) {
   .am-section, .am-section--tint, .am-section--dark { padding: 60px 0; }
 }
@@ -127,15 +123,6 @@ video { max-width: 100%; height: auto; display: block; }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #f40060;
-}
-
-.am-hero-title {
-  margin: 0 0 22px;
-  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
-  font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.01em;
-  color: var(--am-ink);
 }
 
 .am-section-title {
@@ -182,13 +169,6 @@ video { max-width: 100%; height: auto; display: block; }
 
 .am-body a:hover {
   text-decoration-color: var(--am-accent);
-}
-
-.am-note {
-  font-size: 0.9rem;
-  font-weight: 400;
-  font-style: italic;
-  color: rgba(34, 34, 34, 0.55);
 }
 
 /* Overview intro — centered, narrow column, same shape as the Airbnb
@@ -266,36 +246,6 @@ video { max-width: 100%; height: auto; display: block; }
   max-width: 80%;
   max-height: 90vh;
   margin: 0 auto;
-}
-
-.am-hero__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px 40px;
-  margin: 36px 0 0;
-  padding-top: 26px;
-  border-top: 1px solid var(--am-line);
-}
-
-.am-hero__meta div {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.am-hero__meta dt {
-  font-size: 11.5px;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(34, 34, 34, 0.5);
-}
-
-.am-hero__meta dd {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 400;
-  color: var(--am-ink);
 }
 
 /* -------------------------------------------------------------------------
@@ -452,124 +402,6 @@ video { max-width: 100%; height: auto; display: block; }
 }
 
 /* -------------------------------------------------------------------------
- * Compare row — two large images side by side, each with its own title
- * and bullet list underneath. Same shape as a spec-sheet "A vs B" layout.
- * ---------------------------------------------------------------------- */
-.am-compare {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  margin-top: 48px;
-}
-
-@media screen and (max-width: 768px) {
-  .am-compare { grid-template-columns: 1fr; gap: 40px; }
-}
-
-.am-compare__item .am-placeholder {
-  aspect-ratio: 4 / 3;
-  margin-bottom: 22px;
-}
-
-.am-compare__item h3 {
-  margin: 0 0 14px;
-  font-size: 1.15rem;
-  font-weight: 400;
-  color: var(--am-ink);
-}
-
-.am-compare__item ul {
-  margin: 0;
-  padding-left: 1.15em;
-}
-
-.am-compare__item li {
-  margin-bottom: 0.6em;
-  font-size: 0.98rem;
-  font-weight: 400;
-  line-height: 1.6;
-  color: rgba(34, 34, 34, 0.72);
-}
-
-.am-compare__item li:last-child { margin-bottom: 0; }
-
-/* -------------------------------------------------------------------------
- * Outcome badges
- * ---------------------------------------------------------------------- */
-.am-badges {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-top: 48px;
-}
-
-@media screen and (max-width: 768px) {
-  .am-badges { grid-template-columns: 1fr; gap: 14px; }
-}
-
-.am-badge {
-  padding: 26px 24px;
-  border-radius: var(--am-radius);
-  background: #ffffff;
-  border: 1px solid var(--am-line);
-}
-
-.am-badge p {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: var(--am-ink);
-}
-
-/* -------------------------------------------------------------------------
- * Buttons / links — the one place brand red shows up.
- * ---------------------------------------------------------------------- */
-.am-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 28px;
-  border-radius: 999px;
-  background: var(--am-accent);
-  color: #fff;
-  font-size: 14.5px;
-  font-weight: 400;
-  text-decoration: none;
-  transition: background 0.25s var(--am-ease), transform 0.25s var(--am-ease);
-}
-
-.am-btn:hover {
-  background: #e31c5f;
-  transform: translateY(-2px);
-  color: #fff;
-}
-
-.am-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.98rem;
-  font-weight: 400;
-  color: var(--am-ink);
-  text-decoration: underline;
-  text-decoration-color: rgba(34, 34, 34, 0.3);
-  text-underline-offset: 3px;
-  transition: color 0.2s var(--am-ease), text-decoration-color 0.2s var(--am-ease);
-}
-
-.am-link:hover {
-  color: var(--am-accent);
-  text-decoration-color: var(--am-accent);
-}
-
-.am-cta {
-  text-align: center;
-}
-
-.am-cta .am-section-title { margin-bottom: 30px; }
-
-/* -------------------------------------------------------------------------
  * FAQ accordion
  * ---------------------------------------------------------------------- */
 .am-faq {
@@ -615,13 +447,7 @@ video { max-width: 100%; height: auto; display: block; }
 /* -------------------------------------------------------------------------
  * Accessibility
  * ---------------------------------------------------------------------- */
-.am-btn:focus-visible,
-.am-link:focus-visible,
 .am-faq summary:focus-visible {
   outline: 2px solid var(--am-accent);
   outline-offset: 3px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .am-btn { transition: none; }
 }
