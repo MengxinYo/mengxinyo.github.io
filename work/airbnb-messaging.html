@@ -228,10 +228,7 @@
         <div class="am-wrap">
             <div class="am-part-intro">
                 <span class="am-eyebrow">/ Design Goal</span>
-                <h2 class="am-section-title">Building the new Airbnb Messaging</h2>
-                <p class="am-subhead" style="max-width: 700px;">
-                Three goals shaped what we built and how we built it.
-                </p>
+                <h2 class="am-section-title">What we built and how we built it</h2>
             </div>
 
             <div class="am-grid-3 am-grid-3--icon-row" style="margin-top: 80px;">
@@ -271,7 +268,7 @@
                 <span class="am-eyebrow">/ Part 1 — Inbox</span>
                 <h2 class="am-section-title">The old Inbox was never one system</h2>
                 <p class="am-subhead" style="max-width: 640px;">
-                    Two separate products, a navigation that only grew messier, and cards that shared no rules.
+                    Two separate products, a navigation that only grew messier, and components that shared no rules.
                     Every piece had been built on its own, and it showed.
                 </p>
             </div>
@@ -302,7 +299,7 @@
                 <div class="am-grid-3__item">
                     <img src="../assets/images/messaging/Inbox5.png" alt="Composer — quick actions">
                     <h3>Cards with no shared rules</h3>
-                    <p>Thread cards spanned different businesses and scenarios, yet followed no shared standard.</p>
+                    <p>Thread cards spanned different businesses and scenarios, yet followed no shared rules.</p>
                 </div>
             </div>
         </div>
@@ -325,43 +322,175 @@
         </div>
     </section>
 
+      <!-- Caterpillar navigation -->
+    <section class="am-section--tint">
+        <div class="am-wrap">
+            <div class="am-part-intro">
+                <h2 class="am-section-title">The caterpillar navigation</h2>
+                <p class="am-subhead" style="max-width: 700px;">
+                    One navigation, unified for every role and scalable for every business. At each level, it shows only what a person came for and folds the rest away, so the more it scales to hold, the lighter it stays to use.
+                </p>
+            </div>
+            <div class="am-part-intro" style="margin-top: 40px;">
+            <img src="../assets/images/messaging/navoverview.png" style="max-width: 700px;">
+            </div>
+        </div>
+    </section>
+
     <!-- Inbox structure -->
      <section class="am-section--tint">
         <div class="am-wrap">
-            <h2 class="am-section-title">Rebuild the structure for the unified Inbox</h2>
+            <h2 class="am-section-title">Rebuild the structure behind a unified Inbox</h2>
             <p class="am-subhead" style="max-width: 700px;">
                 We remapped the Inbox around one shared structure, so every
                 role and business could live in the same place instead of each carving out its own.
             </p>
-            <img src="../assets/images/messaging/map.png" >
+            <img src="../assets/images/messaging/map.png" style="margin-top: 80px;">
+        </div>
+    </section>
+
+    <section class="am-section--tint">
+        <div class="am-wrap">
+            <div class="am-grid-2 am-grid-2--40-60">
+                <div class="am-grid-2__text">
+                    <h2 class="am-section-title">The first level nav built around purpose</h2>
+                    <div class="am-body">
+                        <p>
+                            Before showing anything, the navigation asks one question: what did this person open the Inbox to do? Every choice below follows from the answer.
+                        </p>
+                    </div>
+                </div>
+                <div class="am-grid-2__art">
+                    <div>
+                        <!-- PLACEHOLDER: old plain-text thread vs a richer, social one -->
+                        <img width="100%" src="../assets/images/messaging/nav1.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <section class="am-section--tint">
+        <div class="am-wrap">
+            <div class="am-grid-2 am-grid-2--40-60">
+                <div class="am-grid-2__text">
+                    <h2 class="am-section-title">Surfacing the three businesses for multi-role hosts</h2>
+                    <div class="am-body">
+                        <p>
+                            Traveling is manageable: nearly half of travelers have < 5 reservations in a single trip. Hosting is not: most hosts run many reservations at once, often across homes, experiences, and services. So for a host wearing several hats, we split "Hosting" to give each business the visibility it needs, and to make them easier to manage side by side.
+                        </p>
+                    </div>
+                </div>
+                <div class="am-grid-2__art">
+                    <div>
+                        <!-- PLACEHOLDER: old plain-text thread vs a richer, social one -->
+                        <img width="100%" src="../assets/images/messaging/nav2.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+           <section class="am-section--tint">
+        <div class="am-wrap">
+            <div class="am-grid-2 am-grid-2--40-60">
+                <div class="am-grid-2__text">
+                    <h2 class="am-section-title">Folding filters into the 2nd level nav</h2>
+                    <div class="am-body">
+                        <p>
+                            By the second level, we already know why a user is here, so navigation and filtering merge into one contextual layer, shaped by that purpose. For instance, a host cares about where a trip stands and whether a thread is unread or starred, so the navigation adapts to exactly what each role needs to see.
+                        </p>
+                    </div>
+                </div>
+                <div class="am-grid-2__art">
+                    <div>
+                        <!-- PLACEHOLDER: old plain-text thread vs a richer, social one -->
+                        <img width="100%" src="../assets/images/messaging/nav3.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="am-section--tint">
+        <div class="am-wrap">
+            <div class="am-grid-2 am-grid-2--40-60">
+                <div class="am-grid-2__text">
+                    <h2 class="am-section-title">Adaptive navigation on desktop</h2>
+                    <div class="am-body">
+                        <p>
+                            Desktop doesn't scroll horizontally with ease, so the navigation folds back into a dropdown. Context-specific filters appear once a purpose is selected, and with less space here, only the essentials stay visible while the rest collapse into one.
+                        </p>
+                    </div>
+                </div>
+                <div class="am-grid-2__art">
+                    <div>
+                        <!-- PLACEHOLDER: old plain-text thread vs a richer, social one -->
+                        <img width="100%" src="../assets/images/messaging/nav4.png">
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
   
-    <!-- Caterpillar navigation -->
+    <!-- Inbox card -->
     <section class="am-section--tint">
         <div class="am-wrap">
-            <h2 class="am-section-title">The caterpillar navigation</h2>
-            <p class="am-subhead" style="max-width: 800px;">
-                A progressive filter that grows with a person's complexity rather than Airbnb's. Tabs break
-                down past five items, and search asks people to know what they want before they look. This
-                sits between the two: collapsed for the guest with a single trip, and unfolding only for the
-                host who is juggling many.
-            </p>
-            <img src="../assets/images/messaging/nav.png" style="max-width: 800px;">
+            <div class="am-part-intro">
+                <h2 class="am-section-title">The Inbox card</h2>
+                <p class="am-subhead" style="max-width: 700px;">
+                    A single card structure carries every business Airbnb runs, and it knows which detail matters most in each.
+                </p>
+            </div>
+            <div class="am-part-intro" style="margin-top: 40px;">
+            <img src="../assets/images/messaging/cardoverview.png" style="max-width: 700px;">
+            </div>
         </div>
     </section>
-    <!-- Rich media -->
+
+    <!-- Inboxcard structure -->
     <section class="am-section--tint">
         <div class="am-wrap">
-            <h2 class="am-section-title">An Inbox card for every business</h2>
-            <p class="am-subhead" style="max-width: 800px;">
-                A single card structure carries every business Airbnb runs, and it knows which detail matters
-                most in each. One anatomy, tuned to its context, so a Home, an Experience, and a Support
-                case each lead with exactly what a person needs to see.
-            </p>
-            <img src="../assets/images/messaging/inboxcard.png" style="max-width: 800px;">
+            <div class="am-grid-2 am-grid-2--40-60">
+                <div class="am-grid-2__text">
+                    <h2 class="am-section-title">Anatomy of the Inbox card</h2>
+                    <div class="am-body">
+                        <p>
+                            One structure underlies every card in the Inbox: the same parts, in the same places, whatever the business. What changes is never the skeleton, only what fills it, and always the detail that matters most.
+                            </p>
+                    </div>
+                </div>
+                <div class="am-grid-2__art">
+                    <div>
+                        <!-- PLACEHOLDER: old plain-text thread vs a richer, social one -->
+                        <img width="100%" src="../assets/images/messaging/inboxcard.png">
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
+
+        <section class="am-section--tint">
+        <div class="am-wrap">
+            <div class="am-grid-2 am-grid-2--40-60">
+                <div class="am-grid-2__text">
+                    <h2 class="am-section-title">One structure, filled by need</h2>
+                    <div class="am-body">
+                        <p>
+                            For instance, a guest rarely needs the listing's name; a photo and a city are enough to place the trip. A host is the opposite: with several similar listings in one city, only the name tells them apart. So the same slot shows the city for a guest and the listing name for a host.
+                        </p>
+                    </div>
+                </div>
+                <div class="am-grid-2__art">
+                    <div>
+                        <!-- PLACEHOLDER: old plain-text thread vs a richer, social one -->
+                        <img width="100%" src="../assets/images/messaging/inboxcard1.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
 
     <!-- ============================================================
@@ -372,7 +501,7 @@
             <div class="am-part-intro">
                 <span class="am-eyebrow">/ Part 2 — Thread</span>
                 <h2 class="am-section-title">Where the conversation happens</h2>
-                <p class="am-subhead" style="max-width: 640px;">
+                <p class="am-subhead" style="max-width: 700px;">
                     Inside a thread, a plain message list becomes a surface that adapts to who is talking,
                     expands to whatever needs saying, and carries the actions that move a trip forward.
                 </p>
