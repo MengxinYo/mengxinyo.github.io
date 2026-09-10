@@ -6,6 +6,12 @@
       "runtimeExecutable": "/usr/bin/ruby",
       "runtimeArgs": ["-run", "-e", "httpd", ".", "-p", "8000"],
       "port": 8000
+    },
+    {
+      "name": "static-node",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [".claude/static-server.js"],
+      "port": 8000
     }
   ]
 }

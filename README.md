@@ -13,6 +13,9 @@ python3 -m http.server 8000
 index.html              Work grid (home)
 about.html              About me — photography and side projects
 resume.html             Resume — EN/中文 PDF preview + download
+vibe-coding.html        Interactive experiments gallery
+projects/
+  grainroom/            Self-contained Grainroom image editor
 work/
   tal.html              Case study — TAL Assessment Ecosystem
   houyi.html            Case study — Hou Yi and Ten Suns
