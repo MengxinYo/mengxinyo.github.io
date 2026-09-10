@@ -25,12 +25,43 @@
 	width: 100%; max-width: 1140px; height: 100%; margin: auto;
 	padding: 104px 15px 64px;
 }
-.edition-detail__visual { display: flex; align-items: flex-start; justify-content: center; min-width: 0; }
+.edition-detail__visual {
+	--cover-w: min(100%, 440px, 58vh);
+	display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+	min-width: 0;
+}
 .edition-detail__cover {
-	position: relative; width: min(100%, 440px, 58vh); aspect-ratio: 1;
+	position: relative; width: var(--cover-w); aspect-ratio: 1;
 	container-type: inline-size; flex: none;
 	box-shadow: 0 22px 40px -24px #0005, 0 3px 8px #0000000d;
 }
+/* Repo link: same width as the cover, aligned edge to edge, sitting below it. */
+.edition-detail__repo {
+	box-sizing: border-box; width: var(--cover-w); margin-top: 32px;
+	display: flex; align-items: center; gap: 14px;
+	padding: 16px 18px; border: 1px solid #2222221f;
+	color: #222; text-decoration: none;
+	font: 400 15px/1.4 'Nunito Sans', Arial, sans-serif;
+	transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.edition-detail__repo[hidden] { display: none; }
+.edition-detail__repo:hover {
+	border-color: #222; transform: translateY(-2px);
+	box-shadow: 0 10px 24px -16px #0006;
+}
+.edition-detail__repo:focus-visible { outline: 2px solid #222; outline-offset: 3px; }
+.edition-detail__repo-mark { flex: none; color: #222; }
+.edition-detail__repo-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.edition-detail__repo-label { font-weight: 600; letter-spacing: .01em; }
+.edition-detail__repo-path {
+	font-size: 12.5px; color: #8a8a8a; letter-spacing: .01em;
+	white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.edition-detail__repo-arrow {
+	flex: none; font-size: 17px; color: #222; line-height: 1;
+	transition: transform .2s ease;
+}
+.edition-detail__repo:hover .edition-detail__repo-arrow { transform: translateX(4px); }
 /* No top padding: the eyebrow's rule sits flush with the grid cell top so it
    lines up with the top edge of the cover art on the left (which is
    flex-start aligned in .edition-detail__visual). */
@@ -67,7 +98,8 @@
 	.edition-detail__back { position: sticky; top: 0; left: 0; width: 100%; padding: 12px 24px; min-height: 58px; }
 	.edition-detail--embedded .edition-detail__back { position: absolute; top: 0; }
 	.edition-detail__layout { display: flex; flex-direction: column; height: auto; padding: 32px 24px 56px; gap: 40px; }
-	.edition-detail__cover { width: min(72vw, 360px); }
+	.edition-detail__visual { --cover-w: min(72vw, 360px); }
+	.edition-detail__repo { margin-top: 24px; }
 	.edition-detail__text { overflow: visible; padding: 0; }
 	.edition-detail__eyebrow { margin-bottom: 24px; }
 	.edition-detail__intro { font-size: 1.08rem; margin-bottom: 32px; }

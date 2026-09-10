@@ -23,6 +23,19 @@
 			] }
 		]
 	];
+	var repos = [
+		'https://github.com/MengxinYo/OnTop'
+	];
+	var repoEl = dialog.querySelector('[data-detail-repo]');
+	var repoPathEl = dialog.querySelector('[data-detail-repo-path]');
+	function renderRepo(index) {
+		var url = repos[index];
+		if (!url) { repoEl.hidden = true; return; }
+		repoEl.href = url;
+		try { repoPathEl.textContent = new URL(url).pathname.replace(/^\/|\/$/g, ''); }
+		catch (e) { repoPathEl.textContent = url.replace(/^https?:\/\/(www\.)?/, ''); }
+		repoEl.hidden = false;
+	}
 	var sectionsHost = dialog.querySelector('.edition-detail__sections');
 	var placeholderSections = sectionsHost.innerHTML;
 	function renderSections(index) {
@@ -79,6 +92,7 @@
 		dialog.querySelector('[data-detail-season]').textContent = album.querySelector('.ed-album__season').textContent;
 		dialog.querySelector('[data-detail-intro]').textContent = descriptions[index] || 'An experiment in design, interaction, and creative coding.';
 		renderSections(index);
+		renderRepo(index);
 		if (!embedded) target.style.visibility = 'hidden';
 		dialog.showModal(); dialog.scrollTop = 0; text.scrollTop = 0;
 		album.style.visibility = 'hidden';
